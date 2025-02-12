@@ -4,7 +4,12 @@
   "package": "sircow.preservedblizzard.mixin",
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_18",
-  "mixins": [],
+  "mixins": [
+    "GameRulesMixin",
+    "IglooPiecesMixin",
+    "ServerLevelMixin",
+    "ZombieMixin"
+  ],
   "client": [],
   "server": [],
   "injectors": {
