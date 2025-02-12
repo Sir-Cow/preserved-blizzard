@@ -1,6 +1,6 @@
-package com.example.examplemod.platform;
+package sircow.preservedblizzard.platform;
 
-import com.example.examplemod.platform.services.IPlatformHelper;
+import sircow.preservedblizzard.platform.services.IPlatformHelper;
 import net.fabricmc.loader.api.FabricLoader;
 
 public class FabricPlatformHelper implements IPlatformHelper {

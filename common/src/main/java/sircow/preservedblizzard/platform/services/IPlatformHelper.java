@@ -1,4 +1,4 @@
-package com.example.examplemod.platform.services;
+package sircow.preservedblizzard.platform.services;
 
 public interface IPlatformHelper {
     /**
