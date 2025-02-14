@@ -8,6 +8,7 @@
     "BaseFireBlockMixin",
     "GameRulesMixin",
     "IglooPiecesMixin",
+    "LivingEntityMixin",
     "PortalShapeMixin",
     "ServerLevelMixin",
     "ZombieMixin"
