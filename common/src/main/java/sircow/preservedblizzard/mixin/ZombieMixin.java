@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ZombieMixin {
     // stop villagers converting to zombies
     @Inject(at = @At("TAIL"), method = "convertVillagerToZombieVillager")
-    private void sir_cow$cancelZombieVillagerConvert(ServerLevel level, Villager villager, CallbackInfoReturnable<Boolean> cir) {
+    private void preserved_blizzard$cancelZombieVillagerConvert(ServerLevel level, Villager villager, CallbackInfoReturnable<Boolean> cir) {
         cir.cancel();
     }
 }

@@ -17,11 +17,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(IglooPieces.class)
 public class IglooPiecesMixin {
     // prevent middle and bottom parts of igloo structures generating
-    @Final @Shadow
-    static final ResourceLocation STRUCTURE_LOCATION_IGLOO = ResourceLocation.withDefaultNamespace("igloo/top");
+    @Shadow static final ResourceLocation STRUCTURE_LOCATION_IGLOO = ResourceLocation.withDefaultNamespace("igloo/top");
 
     @Inject(at = @At("HEAD"), method = "addPieces", cancellable = true)
-    private static void sir_cow$modifyIgloo(StructureTemplateManager structureTemplateManager, BlockPos startPos, Rotation rotation, StructurePieceAccessor pieces, RandomSource random, CallbackInfo ci) {
+    private static void preserved_blizzard$modifyIgloo(StructureTemplateManager structureTemplateManager, BlockPos startPos, Rotation rotation, StructurePieceAccessor pieces, RandomSource random, CallbackInfo ci) {
         pieces.addPiece(new IglooPieces.IglooPiece(structureTemplateManager, STRUCTURE_LOCATION_IGLOO, startPos, rotation, 0));
         ci.cancel();
     }

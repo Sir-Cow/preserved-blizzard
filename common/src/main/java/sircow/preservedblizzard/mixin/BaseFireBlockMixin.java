@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.Blocks;
 @Mixin(BaseFireBlock.class)
 public class BaseFireBlockMixin {
     @ModifyVariable(method = "isPortal", at = @At(value = "INVOKE", target="Lnet/minecraft/core/Direction;values()[Lnet/minecraft/core/Direction;"))
-    private static boolean sir_cow$portalCheck(boolean bl, Level level, BlockPos pos, Direction p_direction) {
+    private static boolean preserved_blizzard$portalCheck(boolean bl, Level level, BlockPos pos, Direction p_direction) {
         BlockPos.MutableBlockPos blockpos$mutableblockpos = pos.mutable();
 
         for (Direction direction : Direction.values()) {

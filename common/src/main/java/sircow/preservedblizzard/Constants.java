@@ -5,6 +5,6 @@ import org.slf4j.LoggerFactory;
 
 public class Constants {
 	public static final String MOD_ID = "preservedblizzard";
-	public static final String MOD_NAME = "preservedblizzard";
+	public static final String MOD_NAME = "Preserved: Blizzard";
 	public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
 }

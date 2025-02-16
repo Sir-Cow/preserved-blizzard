@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class LivingEntityMixin {
     // make mob loot only drop when killed by a player
     @Inject(method = "dropAllDeathLoot", at = @At("HEAD"), cancellable = true)
-    private void sir_cow$modifyMobDrops(ServerLevel level, DamageSource damageSource, CallbackInfo ci) {
+    private void preserved_blizzard$modifyMobDrops(ServerLevel level, DamageSource damageSource, CallbackInfo ci) {
         if (damageSource.getEntity() instanceof Player) {
             // nothing! continue as normal
         } else {

@@ -11,7 +11,7 @@ public class GameRulesMixin {
     // set the playersSleepingPercentage gamerule to 0 by default
     @ModifyArg(method = "<clinit>", slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=playersSleepingPercentage")),
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/GameRules$IntegerValue;create(I)Lnet/minecraft/world/level/GameRules$Type;", ordinal = 0))
-    private static int sir_cow$changeVal(int p_46313_) {
+    private static int preserved_blizzard$changeVal(int p_46313_) {
         return 0;
     }
 }

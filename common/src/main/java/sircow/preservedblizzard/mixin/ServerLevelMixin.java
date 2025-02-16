@@ -10,8 +10,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ServerLevel.class)
 public abstract class ServerLevelMixin {
-    @Inject(at = @At("HEAD"), method = "addEntity")
-    private void sir_cow$cancelZombieVillagerSpawning(Entity entity, CallbackInfoReturnable<Boolean> cir) {
+    @Inject(method = "addEntity", at = @At("HEAD"))
+    private void preserved_blizzard$cancelZombieVillagerSpawning(Entity entity, CallbackInfoReturnable<Boolean> cir) {
         if (entity.getType() == EntityType.ZOMBIE_VILLAGER) {
             entity.setRemoved(Entity.RemovalReason.DISCARDED);
         }

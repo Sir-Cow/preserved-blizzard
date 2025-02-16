@@ -5,12 +5,16 @@
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_18",
   "mixins": [
+    "AxeItemMixin",
     "BaseFireBlockMixin",
     "GameRulesMixin",
     "IglooPiecesMixin",
+    "ItemsMixin",
     "LivingEntityMixin",
     "PortalShapeMixin",
     "ServerLevelMixin",
+    "SwordItemMixin",
+    "TridentItemMixin",
     "ZombieMixin"
   ],
   "client": [],

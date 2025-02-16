@@ -21,7 +21,7 @@ public class PortalShapeMixin {
     private static BlockBehaviour.StatePredicate FRAME;
 
     @Inject(method = "<clinit>", at = @At(value = "TAIL"))
-    private static void PortalShape(CallbackInfo ci) {
+    private static void preserved_blizzard$changeCheck(CallbackInfo ci) {
         FRAME = (BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) ->
                 blockState.is(Blocks.OBSIDIAN) || blockState.getBlock() instanceof CryingObsidianBlock;
     }
