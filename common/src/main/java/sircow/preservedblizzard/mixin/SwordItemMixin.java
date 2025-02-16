@@ -12,8 +12,7 @@ public class SwordItemMixin {
     @ModifyArg(method = "<init>", at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/world/item/ToolMaterial;applySwordProperties(Lnet/minecraft/world/item/Item$Properties;FF)Lnet/minecraft/world/item/Item$Properties;"),
-            index = 1,
-            remap = false
+            index = 1
     )
     private static float preserved_blizzard$modifyAttackDamage(float attackDamage) {
         if (RegisterItemChecker.flip) {

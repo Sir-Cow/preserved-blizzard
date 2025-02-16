@@ -12,8 +12,7 @@ public class AxeItemMixin {
     @ModifyArg(method = "<init>", at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/world/item/DiggerItem;<init>(Lnet/minecraft/world/item/ToolMaterial;Lnet/minecraft/tags/TagKey;FFLnet/minecraft/world/item/Item$Properties;)V"),
-            index = 2,
-            remap = false
+            index = 2
     )
     private static float preserved_blizzard$modifyAttackDamage(float attackDamage) {
         if (RegisterItemChecker.flip) {
