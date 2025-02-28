@@ -20,7 +20,9 @@
     "TridentItemMixin",
     "ZombieMixin"
   ],
-  "client": [],
+  "client": [
+    "GuiMixin"
+  ],
   "server": [],
   "injectors": {
     "defaultRequire": 1
