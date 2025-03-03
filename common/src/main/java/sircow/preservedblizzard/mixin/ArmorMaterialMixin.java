@@ -33,6 +33,7 @@ public class ArmorMaterialMixin {
     @Unique private static final Map<ArmorType, Float> GOLD_TOUGHNESS = new HashMap<>();
     @Unique private static final Map<ArmorType, Float> DIAMOND_TOUGHNESS = new HashMap<>();
     @Unique private static final Map<ArmorType, Float> NETHERITE_TOUGHNESS = new HashMap<>();
+    @Unique private static final Map<ArmorType, Float> TURTLE_TOUGHNESS = new HashMap<>();
 
     static {
         LEATHER_TOUGHNESS.put(ArmorType.HELMET, 0.0f); LEATHER_TOUGHNESS.put(ArmorType.CHESTPLATE, 1.0f);
@@ -62,6 +63,11 @@ public class ArmorMaterialMixin {
     static {
         NETHERITE_TOUGHNESS.put(ArmorType.HELMET, 2.0f); NETHERITE_TOUGHNESS.put(ArmorType.CHESTPLATE, 2.0f);
         NETHERITE_TOUGHNESS.put(ArmorType.LEGGINGS, 2.0f); NETHERITE_TOUGHNESS.put(ArmorType.BOOTS, 2.0f);
+    }
+
+    static {
+        TURTLE_TOUGHNESS.put(ArmorType.HELMET, 0.0f); TURTLE_TOUGHNESS.put(ArmorType.CHESTPLATE, 0.0f);
+        TURTLE_TOUGHNESS.put(ArmorType.LEGGINGS, 0.0f); TURTLE_TOUGHNESS.put(ArmorType.BOOTS, 0.0f);
     }
 
     // modify toughness values for individual armour pieces
@@ -100,33 +106,33 @@ public class ArmorMaterialMixin {
         else if (assetId.toString().contains("gold")) {
             toughVal = GOLD_TOUGHNESS.getOrDefault(armorType, 0.0F);
             this.defense.put(ArmorType.BOOTS, 4);
-            this.defense.put(ArmorType.LEGGINGS, 8);
-            this.defense.put(ArmorType.CHESTPLATE, 10);
+            this.defense.put(ArmorType.LEGGINGS, 9);
+            this.defense.put(ArmorType.CHESTPLATE, 11);
             this.defense.put(ArmorType.HELMET, 6);
             this.defense.put(ArmorType.BODY, 40);
         }
         else if (assetId.toString().contains("diamond")) {
             toughVal = DIAMOND_TOUGHNESS.getOrDefault(armorType, 0.0F);
-            this.defense.put(ArmorType.BOOTS, 8);
+            this.defense.put(ArmorType.BOOTS, 9);
             this.defense.put(ArmorType.LEGGINGS, 14);
             this.defense.put(ArmorType.CHESTPLATE, 16);
-            this.defense.put(ArmorType.HELMET, 12);
+            this.defense.put(ArmorType.HELMET, 11);
             this.defense.put(ArmorType.BODY, 50);
         }
         else if (assetId.toString().contains("netherite")) {
             toughVal = NETHERITE_TOUGHNESS.getOrDefault(armorType, 0.0F);
-            this.defense.put(ArmorType.BOOTS, 12);
-            this.defense.put(ArmorType.LEGGINGS, 22);
-            this.defense.put(ArmorType.CHESTPLATE, 30);
-            this.defense.put(ArmorType.HELMET, 16);
+            this.defense.put(ArmorType.BOOTS, 13);
+            this.defense.put(ArmorType.LEGGINGS, 24);
+            this.defense.put(ArmorType.CHESTPLATE, 28);
+            this.defense.put(ArmorType.HELMET, 15);
             this.defense.put(ArmorType.BODY, 11);
         }
         else if (assetId.toString().contains("turtle")) {
-            toughVal = NETHERITE_TOUGHNESS.getOrDefault(armorType, 0.0F);
+            toughVal = TURTLE_TOUGHNESS.getOrDefault(armorType, 0.0F);
             this.defense.put(ArmorType.BOOTS, 2);
             this.defense.put(ArmorType.LEGGINGS, 5);
             this.defense.put(ArmorType.CHESTPLATE, 6);
-            this.defense.put(ArmorType.HELMET, 10);
+            this.defense.put(ArmorType.HELMET, 12);
             this.defense.put(ArmorType.BODY, 5);
         }
         else {

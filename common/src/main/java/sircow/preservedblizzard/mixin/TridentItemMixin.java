@@ -1,25 +1,49 @@
 package sircow.preservedblizzard.mixin;
 
-import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.component.ItemAttributeModifiers;
 import org.spongepowered.asm.mixin.Mixin;
 import net.minecraft.world.item.TridentItem;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 import static net.minecraft.world.item.Item.BASE_ATTACK_DAMAGE_ID;
 import static net.minecraft.world.item.Item.BASE_ATTACK_SPEED_ID;
 
 @Mixin(TridentItem.class)
 public class TridentItemMixin {
-    @Inject(method = "createAttributes", at = @At("RETURN"), cancellable = true)
-    private static void preserved_blizzard$overwriteAttributes(CallbackInfoReturnable<ItemAttributeModifiers> cir) {
-        ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
-        builder.add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, 9.0, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
-        builder.add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, -2.8F, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
-        cir.setReturnValue(builder.build());
+    @ModifyArg(
+            method = "releaseUsing",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;startAutoSpinAttack(IFLnet/minecraft/world/item/ItemStack;)V"),
+            index = 1
+    )
+    private float preserved_blizzard$modifySpinAttackDamage(float originalDamage) {
+        return 9.0F;
+    }
+
+    // modify base damage and attack speed
+    @ModifyArg(
+            method = "createAttributes",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/item/component/ItemAttributeModifiers$Builder;add(Lnet/minecraft/core/Holder;Lnet/minecraft/world/entity/ai/attributes/AttributeModifier;Lnet/minecraft/world/entity/EquipmentSlotGroup;)Lnet/minecraft/world/item/component/ItemAttributeModifiers$Builder;",
+                    ordinal = 0),
+            index = 1
+    )
+    private static AttributeModifier preserved_blizzard$modifyDamage(AttributeModifier modifier) {
+        modifier = new AttributeModifier(BASE_ATTACK_DAMAGE_ID, 9.0, AttributeModifier.Operation.ADD_VALUE);
+        return modifier;
+    }
+
+    @ModifyArg(
+            method = "createAttributes",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/item/component/ItemAttributeModifiers$Builder;add(Lnet/minecraft/core/Holder;Lnet/minecraft/world/entity/ai/attributes/AttributeModifier;Lnet/minecraft/world/entity/EquipmentSlotGroup;)Lnet/minecraft/world/item/component/ItemAttributeModifiers$Builder;",
+                    ordinal = 1),
+            index = 1
+    )
+    private static AttributeModifier preserved_blizzard$modifyAttackSpeed(AttributeModifier modifier) {
+        modifier = new AttributeModifier(BASE_ATTACK_SPEED_ID, -2.8F, AttributeModifier.Operation.ADD_VALUE);
+        return modifier;
     }
 }

@@ -14,9 +14,14 @@ public class LivingEntityMixin {
     // make mob loot only drop when killed by a player
     @Inject(method = "dropAllDeathLoot", at = @At("HEAD"), cancellable = true)
     private void preserved_blizzard$modifyMobDrops(ServerLevel level, DamageSource damageSource, CallbackInfo ci) {
-        if (damageSource.getEntity() instanceof Player) {
-            // nothing! continue as normal
+        LivingEntity entity = (LivingEntity) (Object) this;
+
+        if (entity instanceof Player) {
+            // if the entity is a player, always allow drops
+        } else if (damageSource.getEntity() instanceof Player) {
+            // if the entity is a mob and killed by a player, allow drops
         } else {
+            // otherwise, cancel drops
             ci.cancel();
         }
     }

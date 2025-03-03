@@ -14,11 +14,16 @@
     "IglooPiecesMixin",
     "ItemsMixin",
     "LivingEntityMixin",
+    "MagmaCubeMixin",
     "PortalShapeMixin",
+    "RabbitMixin",
     "ServerLevelMixin",
     "SwordItemMixin",
+    "ThrownTridentMixin",
     "TridentItemMixin",
-    "ZombieMixin"
+    "WitherBossMixin",
+    "ZombieMixin",
+    "ZombifiedPiglinMixin"
   ],
   "client": [
     "GuiMixin"
