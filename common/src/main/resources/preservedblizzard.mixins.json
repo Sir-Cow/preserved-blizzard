@@ -18,6 +18,7 @@
     "PortalShapeMixin",
     "RabbitMixin",
     "ServerLevelMixin",
+    "ShulkerMixin",
     "SwordItemMixin",
     "ThrownTridentMixin",
     "TridentItemMixin",
