@@ -13,6 +13,7 @@
     "GameRulesMixin",
     "IglooPiecesMixin",
     "ItemsMixin",
+    "LiquidBlockMixin",
     "LivingEntityMixin",
     "MagmaCubeMixin",
     "PortalShapeMixin",

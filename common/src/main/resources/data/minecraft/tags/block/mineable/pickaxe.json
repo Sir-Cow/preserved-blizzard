@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "preservedblizzard:rhyolite",
+    "preservedblizzard:polished_rhyolite",
+    "preservedblizzard:rhyolite_wall",
+    "preservedblizzard:rhyolite_stairs",
+    "preservedblizzard:polished_rhyolite_stairs",
+    "preservedblizzard:rhyolite_slab",
+    "preservedblizzard:polished_rhyolite_slab"
+  ]
+}
