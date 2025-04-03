@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "pblizzard:block/polished_rhyolite_slab"
+    },
+    "type=double": {
+      "model": "pblizzard:block/polished_rhyolite"
+    },
+    "type=top": {
+      "model": "pblizzard:block/polished_rhyolite_slab_top"
+    }
+  }
+}

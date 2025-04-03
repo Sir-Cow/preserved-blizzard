@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "pblizzard:block/rhyolite",
+    "side": "pblizzard:block/rhyolite",
+    "top": "pblizzard:block/rhyolite"
+  }
+}

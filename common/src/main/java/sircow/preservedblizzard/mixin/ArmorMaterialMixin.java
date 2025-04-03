@@ -113,10 +113,10 @@ public class ArmorMaterialMixin {
         }
         else if (assetId.toString().contains("diamond")) {
             toughVal = DIAMOND_TOUGHNESS.getOrDefault(armorType, 0.0F);
-            this.defense.put(ArmorType.BOOTS, 9);
-            this.defense.put(ArmorType.LEGGINGS, 14);
-            this.defense.put(ArmorType.CHESTPLATE, 16);
-            this.defense.put(ArmorType.HELMET, 11);
+            this.defense.put(ArmorType.BOOTS, 10);
+            this.defense.put(ArmorType.LEGGINGS, 17);
+            this.defense.put(ArmorType.CHESTPLATE, 20);
+            this.defense.put(ArmorType.HELMET, 13);
             this.defense.put(ArmorType.BODY, 50);
         }
         else if (assetId.toString().contains("netherite")) {

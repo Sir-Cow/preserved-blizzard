@@ -25,6 +25,10 @@ public class ModItems {
         return ResourceKey.create(Registries.ITEM, blockId.location());
     }
 
+    private static ResourceKey<Item> moddedItemId(String name) {
+        return ResourceKey.create(Registries.ITEM, Constants.id(name));
+    }
+
     public static Item registerBlock(Block block) {
         return registerBlock(block, BlockItem::new);
     }
@@ -37,6 +41,10 @@ public class ModItems {
         return registerItem(
                 blockIdToItemId(block.builtInRegistryHolder().key()), p_370785_ -> factory.apply(block, p_370785_), properties.useBlockDescriptionPrefix()
         );
+    }
+
+    public static Item registerItem(String name) {
+        return registerItem(moddedItemId(name), Item::new, new Item.Properties());
     }
 
     public static Item registerItem(ResourceKey<Item> key, Function<Item.Properties, Item> factory, Item.Properties properties) {

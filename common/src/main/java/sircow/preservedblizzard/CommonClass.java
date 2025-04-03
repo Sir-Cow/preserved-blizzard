@@ -7,7 +7,7 @@ import sircow.preservedblizzard.platform.Services;
 
 public class CommonClass {
     public static void init() {
-        if (Services.PLATFORM.isModLoaded("preservedblizzard")) {
+        if (Services.PLATFORM.isModLoaded("pblizzard")) {
             Constants.LOG.info("Initialising Preserved: Blizzard");
             ModBlocks.registerModBlocks();
             ModItems.registerModItems();

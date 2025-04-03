@@ -4,7 +4,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.WallBlock;
@@ -46,7 +45,7 @@ public class ModBlocks {
     }
 
     private static ResourceKey<Block> keyOf(String name) {
-        return ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, name));
+        return ResourceKey.create(Registries.BLOCK, Constants.id(name));
     }
 
     private static Block registerStair(String name, Block baseBlock) {

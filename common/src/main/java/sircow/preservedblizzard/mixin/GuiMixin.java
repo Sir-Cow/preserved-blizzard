@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Gui.class)
 public class GuiMixin {
-    @Unique private static final ResourceLocation NEW_ARMOUR_BAR_EMPTY = ResourceLocation.fromNamespaceAndPath("preservedblizzard", "hud/armor_bar_empty");
-    @Unique private static final ResourceLocation NEW_ARMOUR_BAR_FILLED = ResourceLocation.fromNamespaceAndPath("preservedblizzard", "hud/armor_bar_filled");
+    @Unique private static final ResourceLocation NEW_ARMOUR_BAR_EMPTY = ResourceLocation.fromNamespaceAndPath("pblizzard", "hud/armor_bar_empty");
+    @Unique private static final ResourceLocation NEW_ARMOUR_BAR_FILLED = ResourceLocation.fromNamespaceAndPath("pblizzard", "hud/armor_bar_filled");
 
     // replace vanilla with custom armour bar
     @Inject(method = "renderArmor", at = @At("HEAD"), cancellable = true)
