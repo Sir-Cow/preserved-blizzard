@@ -10,11 +10,12 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import sircow.preservedblizzard.Constants;
 
 @Mixin(Gui.class)
 public class GuiMixin {
-    @Unique private static final ResourceLocation NEW_ARMOUR_BAR_EMPTY = ResourceLocation.fromNamespaceAndPath("pblizzard", "hud/armor_bar_empty");
-    @Unique private static final ResourceLocation NEW_ARMOUR_BAR_FILLED = ResourceLocation.fromNamespaceAndPath("pblizzard", "hud/armor_bar_filled");
+    @Unique private static final ResourceLocation NEW_ARMOUR_BAR_EMPTY = Constants.id("hud/armor_bar_empty");
+    @Unique private static final ResourceLocation NEW_ARMOUR_BAR_FILLED = Constants.id("hud/armor_bar_filled");
 
     // replace vanilla with custom armour bar
     @Inject(method = "renderArmor", at = @At("HEAD"), cancellable = true)

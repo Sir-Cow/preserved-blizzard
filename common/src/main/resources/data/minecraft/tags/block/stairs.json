@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "preservedblizzard:rhyolite_stairs",
-    "preservedblizzard:polished_rhyolite_stairs"
+    "pblizzard:rhyolite_stairs",
+    "pblizzard:polished_rhyolite_stairs"
   ]
 }

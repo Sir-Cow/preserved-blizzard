@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "preservedblizzard:rhyolite_slab",
-    "preservedblizzard:polished_rhyolite_slab"
+    "pblizzard:rhyolite_slab",
+    "pblizzard:polished_rhyolite_slab"
   ]
 }

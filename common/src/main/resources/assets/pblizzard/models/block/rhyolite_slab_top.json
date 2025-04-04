@@ -2,7 +2,7 @@
   "parent": "minecraft:block/slab_top",
   "textures": {
     "bottom": "pblizzard:block/rhyolite",
-    "side": "preservedblizzard:block/rhyolite",
-    "top": "preservedblizzard:block/rhyolite"
+    "side": "pblizzard:block/rhyolite",
+    "top": "pblizzard:block/rhyolite"
   }
 }
