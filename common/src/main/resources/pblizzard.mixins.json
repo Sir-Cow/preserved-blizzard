@@ -20,7 +20,6 @@
     "RabbitMixin",
     "ServerLevelMixin",
     "ShulkerMixin",
-    "SwordItemMixin",
     "ThrownTridentMixin",
     "TridentItemMixin",
     "WitherBossMixin",

@@ -11,8 +11,8 @@ public class AxeItemMixin {
     // modify axe attackDamage
     @ModifyArg(method = "<init>", at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/world/item/DiggerItem;<init>(Lnet/minecraft/world/item/ToolMaterial;Lnet/minecraft/tags/TagKey;FFLnet/minecraft/world/item/Item$Properties;)V"),
-            index = 2
+            target = "Lnet/minecraft/world/item/Item$Properties;axe(Lnet/minecraft/world/item/ToolMaterial;FF)Lnet/minecraft/world/item/Item$Properties;"),
+            index = 1
     )
     private static float preserved_blizzard$modifyAttackDamage(float attackDamage) {
         if (RegisterItemChecker.flip) {
@@ -25,8 +25,8 @@ public class AxeItemMixin {
     // modify axe attackSpeed
     @ModifyArg(method = "<init>", at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/world/item/DiggerItem;<init>(Lnet/minecraft/world/item/ToolMaterial;Lnet/minecraft/tags/TagKey;FFLnet/minecraft/world/item/Item$Properties;)V"),
-            index = 3,
+            target = "Lnet/minecraft/world/item/Item$Properties;axe(Lnet/minecraft/world/item/ToolMaterial;FF)Lnet/minecraft/world/item/Item$Properties;"),
+            index = 2,
             remap = false
     )
     private static float preserved_blizzard$modifyAttackSpeed(float attackSpeed) {
