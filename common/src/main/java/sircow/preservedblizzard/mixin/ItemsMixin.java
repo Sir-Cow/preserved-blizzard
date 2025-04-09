@@ -35,57 +35,51 @@ public class ItemsMixin {
 
     // modify sword attack damage
     @ModifyArg(method = "<clinit>", slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=wooden_sword")), at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/world/item/Items;registerItem(Ljava/lang/String;Ljava/util/function/Function;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;",
-            ordinal = 0
-    ))
-    private static Item.Properties preserved_blizzard$modifyWoodenSword(Item.Properties properties) {
-        return new Item.Properties()
-                .sword(ToolMaterial.WOOD, 2.0F, -2.4F);
+            target = "Lnet/minecraft/world/item/Item$Properties;sword(Lnet/minecraft/world/item/ToolMaterial;FF)Lnet/minecraft/world/item/Item$Properties;"),
+            index = 1
+    )
+    private static float preserved_blizzard$modifyWoodenSword(float attackDamage) {
+        return 2.0F;
     }
 
     @ModifyArg(method = "<clinit>", slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=golden_sword")), at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/world/item/Items;registerItem(Ljava/lang/String;Ljava/util/function/Function;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;",
-            ordinal = 0
-    ))
-    private static Item.Properties preserved_blizzard$modifyGoldenSword(Item.Properties properties) {
-        return new Item.Properties()
-                .sword(ToolMaterial.GOLD, 2.0F, -2.4F);
+            target = "Lnet/minecraft/world/item/Item$Properties;sword(Lnet/minecraft/world/item/ToolMaterial;FF)Lnet/minecraft/world/item/Item$Properties;"),
+            index = 1
+    )
+    private static float preserved_blizzard$modifyGoldenSword(float attackDamage) {
+        return 2.0F;
     }
 
     @ModifyArg(method = "<clinit>", slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=iron_sword")), at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/world/item/Items;registerItem(Ljava/lang/String;Ljava/util/function/Function;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;",
-            ordinal = 0
-    ))
-    private static Item.Properties preserved_blizzard$modifyIronSword(Item.Properties properties) {
-        return new Item.Properties()
-                .sword(ToolMaterial.IRON, 2.0F, -2.4F);
+            target = "Lnet/minecraft/world/item/Item$Properties;sword(Lnet/minecraft/world/item/ToolMaterial;FF)Lnet/minecraft/world/item/Item$Properties;"),
+            index = 1
+    )
+    private static float preserved_blizzard$modifyIronSword(float attackDamage) {
+        return 2.0F;
     }
 
     @ModifyArg(method = "<clinit>", slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=stone_sword")), at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/world/item/Items;registerItem(Ljava/lang/String;Ljava/util/function/Function;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;",
-            ordinal = 0
-    ))
-    private static Item.Properties preserved_blizzard$modifyStoneSword(Item.Properties properties) {
-        return new Item.Properties()
-                .sword(ToolMaterial.STONE, 2.0F, -2.4F);
+            target = "Lnet/minecraft/world/item/Item$Properties;sword(Lnet/minecraft/world/item/ToolMaterial;FF)Lnet/minecraft/world/item/Item$Properties;"),
+            index = 1
+    )
+    private static float preserved_blizzard$modifyStoneSword(float attackDamage) {
+        return 2.0F;
     }
 
     @ModifyArg(method = "<clinit>", slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=diamond_sword")), at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/world/item/Items;registerItem(Ljava/lang/String;Ljava/util/function/Function;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;",
-            ordinal = 0
-    ))
-    private static Item.Properties preserved_blizzard$modifyDiamondSword(Item.Properties properties) {
-        return new Item.Properties()
-                .sword(ToolMaterial.DIAMOND, 2.0F, -2.4F);
+            target = "Lnet/minecraft/world/item/Item$Properties;sword(Lnet/minecraft/world/item/ToolMaterial;FF)Lnet/minecraft/world/item/Item$Properties;"),
+            index = 1
+    )
+    private static float preserved_blizzard$modifyDiamondSword(float attackDamage) {
+        return 2.0F;
     }
 
     @ModifyArg(method = "<clinit>", slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=netherite_sword")), at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/world/item/Items;registerItem(Ljava/lang/String;Ljava/util/function/Function;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;",
-            ordinal = 0
-    ))
-    private static Item.Properties preserved_blizzard$modifyNetheriteSword(Item.Properties properties) {
-        return new Item.Properties()
-                .sword(ToolMaterial.NETHERITE, 2.0F, -2.4F).fireResistant();
+            target = "Lnet/minecraft/world/item/Item$Properties;sword(Lnet/minecraft/world/item/ToolMaterial;FF)Lnet/minecraft/world/item/Item$Properties;"),
+            index = 1
+    )
+    private static float preserved_blizzard$modifyNetheriteSword(float attackDamage) {
+        return 2.0F;
     }
 
     // make trident repairable

@@ -10,6 +10,7 @@
     "AxeItemMixin",
     "BaseFireBlockMixin",
     "CombatRulesMixin",
+    "CompostorBlockMixin",
     "GameRulesMixin",
     "IglooPiecesMixin",
     "ItemsMixin",
