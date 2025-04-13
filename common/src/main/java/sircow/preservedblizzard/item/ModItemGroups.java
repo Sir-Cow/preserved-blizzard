@@ -21,13 +21,13 @@ public class ModItemGroups {
                 .title(Component.translatable("itemgroup.pblizzard.items"))
                 .icon(() -> new ItemStack(ModBlocks.RHYOLITE))
                 .displayItems((displayContext, entries) -> {
-                    entries.accept(ModItems.RHYOLITE);
-                    entries.accept(ModItems.POLISHED_RHYOLITE);
-                    entries.accept(ModItems.RHYOLITE_WALL);
-                    entries.accept(ModItems.RHYOLITE_STAIRS);
-                    entries.accept(ModItems.POLISHED_RHYOLITE_STAIRS);
-                    entries.accept(ModItems.RHYOLITE_SLAB);
-                    entries.accept(ModItems.POLISHED_RHYOLITE_SLAB);
+                    entries.accept(ModBlocks.RHYOLITE.asItem());
+                    entries.accept(ModBlocks.POLISHED_RHYOLITE.asItem());
+                    entries.accept(ModBlocks.RHYOLITE_WALL.asItem());
+                    entries.accept(ModBlocks.RHYOLITE_STAIRS.asItem());
+                    entries.accept(ModBlocks.POLISHED_RHYOLITE_STAIRS.asItem());
+                    entries.accept(ModBlocks.RHYOLITE_SLAB.asItem());
+                    entries.accept(ModBlocks.POLISHED_RHYOLITE_SLAB.asItem());
                 })
                 .build();
         registerCreativeTab(PRESERVED_BLIZZARD_GROUP);

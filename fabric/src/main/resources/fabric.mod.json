@@ -9,7 +9,7 @@
     ],
     "contact": {
         "homepage": "",
-        "sources": "https://github.com/Sir-Cow/preserved-blizzard"
+        "sources": ""
     },
     "license": "${license}",
     "icon": "icon.png",
@@ -17,6 +17,9 @@
     "entrypoints": {
         "main": [
             "sircow.preservedblizzard.PreservedBlizzard"
+        ],
+        "client": [
+            "sircow.preservedblizzard.client.FabricPreservedBlizzardClient"
         ]
     },
     "mixins": [

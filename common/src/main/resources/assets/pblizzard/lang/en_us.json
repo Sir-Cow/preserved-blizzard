@@ -1,11 +1,11 @@
 {
-  "block.pblizzard.rhyolite": "Rhyolite",
-  "block.pblizzard.polished_rhyolite": "Polished Rhyolite",
-  "block.pblizzard.rhyolite_wall": "Rhyolite Wall",
-  "block.pblizzard.rhyolite_stairs": "Rhyolite Stairs",
-  "block.pblizzard.polished_rhyolite_stairs": "Polished Rhyolite Stairs",
-  "block.pblizzard.rhyolite_slab": "Rhyolite Slab",
-  "block.pblizzard.polished_rhyolite_slab": "Polished Rhyolite Slab",
+  "item.pblizzard.rhyolite": "Rhyolite",
+  "item.pblizzard.polished_rhyolite": "Polished Rhyolite",
+  "item.pblizzard.rhyolite_wall": "Rhyolite Wall",
+  "item.pblizzard.rhyolite_stairs": "Rhyolite Stairs",
+  "item.pblizzard.polished_rhyolite_stairs": "Polished Rhyolite Stairs",
+  "item.pblizzard.rhyolite_slab": "Rhyolite Slab",
+  "item.pblizzard.polished_rhyolite_slab": "Polished Rhyolite Slab",
 
   "itemgroup.pblizzard.items": "Preserved: Blizzard"
 }
