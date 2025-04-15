@@ -1,7 +1,6 @@
 package sircow.preservedblizzard.mixin;
 
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.npc.Villager;
 import org.spongepowered.asm.mixin.Mixin;
@@ -10,14 +9,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.minecraft.world.item.Item.BASE_ATTACK_DAMAGE_ID;
-
 @Mixin(Zombie.class)
 public class ZombieMixin {
     // stop villagers converting to zombies
-    @Inject(at = @At("TAIL"), method = "convertVillagerToZombieVillager")
+    @Inject(at = @At("RETURN"), method = "convertVillagerToZombieVillager", cancellable = true)
     private void preserved_blizzard$cancelZombieVillagerConvert(ServerLevel level, Villager villager, CallbackInfoReturnable<Boolean> cir) {
-        cir.cancel();
+        cir.setReturnValue(false);
     }
 
     // modify armour value

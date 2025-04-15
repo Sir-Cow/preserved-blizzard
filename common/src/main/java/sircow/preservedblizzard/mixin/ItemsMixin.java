@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
 import sircow.preservedblizzard.RegisterItemChecker;
 
-@Mixin(Items.class)
+@Mixin(value = Items.class, priority = 1200)
 public class ItemsMixin {
     // catch item names
     @ModifyArg(
@@ -34,7 +34,9 @@ public class ItemsMixin {
     }
 
     // modify sword attack damage
-    @ModifyArg(method = "<clinit>", slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=wooden_sword")), at = @At(value = "INVOKE",
+    @ModifyArg(method = "<clinit>", slice = @Slice(
+            from = @At(value = "CONSTANT", args = "stringValue=wooden_sword"),
+            to = @At(value = "CONSTANT", args = "stringValue=stone_sword")), at = @At(value = "INVOKE",
             target = "Lnet/minecraft/world/item/Item$Properties;sword(Lnet/minecraft/world/item/ToolMaterial;FF)Lnet/minecraft/world/item/Item$Properties;"),
             index = 1
     )
@@ -42,7 +44,9 @@ public class ItemsMixin {
         return 2.0F;
     }
 
-    @ModifyArg(method = "<clinit>", slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=golden_sword")), at = @At(value = "INVOKE",
+    @ModifyArg(method = "<clinit>", slice = @Slice(
+            from = @At(value = "CONSTANT", args = "stringValue=golden_sword"),
+            to = @At(value = "CONSTANT", args = "stringValue=iron_sword")), at = @At(value = "INVOKE",
             target = "Lnet/minecraft/world/item/Item$Properties;sword(Lnet/minecraft/world/item/ToolMaterial;FF)Lnet/minecraft/world/item/Item$Properties;"),
             index = 1
     )
@@ -50,7 +54,9 @@ public class ItemsMixin {
         return 2.0F;
     }
 
-    @ModifyArg(method = "<clinit>", slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=iron_sword")), at = @At(value = "INVOKE",
+    @ModifyArg(method = "<clinit>", slice = @Slice(
+            from = @At(value = "CONSTANT", args = "stringValue=iron_sword"),
+            to = @At(value = "CONSTANT", args = "stringValue=diamond_sword")), at = @At(value = "INVOKE",
             target = "Lnet/minecraft/world/item/Item$Properties;sword(Lnet/minecraft/world/item/ToolMaterial;FF)Lnet/minecraft/world/item/Item$Properties;"),
             index = 1
     )
@@ -58,7 +64,9 @@ public class ItemsMixin {
         return 2.0F;
     }
 
-    @ModifyArg(method = "<clinit>", slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=stone_sword")), at = @At(value = "INVOKE",
+    @ModifyArg(method = "<clinit>", slice = @Slice(
+            from = @At(value = "CONSTANT", args = "stringValue=stone_sword"),
+            to = @At(value = "CONSTANT", args = "stringValue=golden_sword")), at = @At(value = "INVOKE",
             target = "Lnet/minecraft/world/item/Item$Properties;sword(Lnet/minecraft/world/item/ToolMaterial;FF)Lnet/minecraft/world/item/Item$Properties;"),
             index = 1
     )
