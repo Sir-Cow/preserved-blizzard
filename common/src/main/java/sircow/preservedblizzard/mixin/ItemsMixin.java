@@ -66,22 +66,6 @@ public class ItemsMixin {
         return 2.0F;
     }
 
-    @ModifyArg(method = "<clinit>", slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=diamond_sword")), at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/world/item/Item$Properties;sword(Lnet/minecraft/world/item/ToolMaterial;FF)Lnet/minecraft/world/item/Item$Properties;"),
-            index = 1
-    )
-    private static float preserved_blizzard$modifyDiamondSword(float attackDamage) {
-        return 2.0F;
-    }
-
-    @ModifyArg(method = "<clinit>", slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=netherite_sword")), at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/world/item/Item$Properties;sword(Lnet/minecraft/world/item/ToolMaterial;FF)Lnet/minecraft/world/item/Item$Properties;"),
-            index = 1
-    )
-    private static float preserved_blizzard$modifyNetheriteSword(float attackDamage) {
-        return 2.0F;
-    }
-
     // make trident repairable
     @ModifyArg(method = "<clinit>", slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=trident")), at = @At(value = "INVOKE",
             target = "Lnet/minecraft/world/item/Items;registerItem(Ljava/lang/String;Ljava/util/function/Function;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;",

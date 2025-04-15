@@ -150,7 +150,7 @@ public class PreservedEnchantingTableScreen extends AbstractContainerScreen<Pres
         itemCategorySlots.put("armourFire", Set.of(10, 33, 34));
         itemCategorySlots.put("armourBlast", Set.of(2, 33, 34));
         itemCategorySlots.put("shears", Set.of(7, 34));
-        itemCategorySlots.put("misc", Set.of(32));
+        itemCategorySlots.put("misc", Set.of(34));
         itemCategorySlots.put("book", Set.of(
                 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
                 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
