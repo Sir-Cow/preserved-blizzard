@@ -8,6 +8,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.inventory.MenuType;
+import sircow.preservedblizzard.other.FabricModEvents;
 import sircow.preservedblizzard.screen.PreservedEnchantmentMenu;
 
 public class PreservedBlizzard implements ModInitializer {
@@ -31,5 +32,6 @@ public class PreservedBlizzard implements ModInitializer {
     @Override
     public void onInitialize() {
         CommonClass.init();
+        FabricModEvents.registerModEvents();
     }
 }

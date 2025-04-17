@@ -72,7 +72,7 @@ public class ArmorMaterialMixin {
 
     // modify toughness values for individual armour pieces
     @Inject(method = "createAttributes", at = @At("HEAD"), cancellable = true)
-    private void thing(ArmorType armorType, CallbackInfoReturnable<ItemAttributeModifiers> cir) {
+    private void preserved_blizzard$modifyValues(ArmorType armorType, CallbackInfoReturnable<ItemAttributeModifiers> cir) {
 
         float toughVal;
         ItemAttributeModifiers.Builder itemattributemodifiers$builder = ItemAttributeModifiers.builder();

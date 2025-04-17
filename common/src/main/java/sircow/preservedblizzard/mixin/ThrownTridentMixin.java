@@ -10,6 +10,6 @@ public class ThrownTridentMixin {
     // modify thrown trident damage
     @ModifyVariable(method = "onHitEntity", at = @At("STORE"), ordinal = 0)
     private float preserved_blizzard$modifyDamage(float originalValue) {
-        return 9.0F;
+        return 10.0F;
     }
 }

@@ -2,6 +2,7 @@ package sircow.preservedblizzard.mixin;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.Weapon;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -9,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
 import sircow.preservedblizzard.RegisterItemChecker;
 
-@Mixin(value = Items.class, priority = 1200)
+@Mixin(Items.class)
 public class ItemsMixin {
     // catch item names
     @ModifyArg(
@@ -74,18 +75,44 @@ public class ItemsMixin {
         return 2.0F;
     }
 
-    // make trident repairable
-    @ModifyArg(method = "<clinit>", slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=trident")), at = @At(value = "INVOKE",
+    @ModifyArg(method = "<clinit>", slice = @Slice(
+            from = @At(value = "CONSTANT", args = "stringValue=trident")), at = @At(value = "INVOKE",
             target = "Lnet/minecraft/world/item/Items;registerItem(Ljava/lang/String;Ljava/util/function/Function;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;",
             ordinal = 0
     ))
     private static Item.Properties preserved_blizzard$modifyTrident(Item.Properties properties) {
         return new Item.Properties()
-                .rarity(Rarity.RARE)
-                .durability(250)
+                .rarity(Rarity.EPIC)
+                .durability(2031)
                 .attributes(TridentItem.createAttributes())
                 .component(DataComponents.TOOL, TridentItem.createToolProperties())
                 .enchantable(1)
                 .repairable(Items.PRISMARINE_CRYSTALS);
+    }
+
+    @ModifyArg(method = "<clinit>", slice = @Slice(
+            from = @At(value = "CONSTANT", args = "stringValue=mace")), at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/world/item/Items;registerItem(Ljava/lang/String;Ljava/util/function/Function;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;",
+            ordinal = 0
+    ))
+    private static Item.Properties preserved_blizzard$modifyMace(Item.Properties properties) {
+        return new Item.Properties()
+                .rarity(Rarity.EPIC)
+                .durability(2031)
+                .component(DataComponents.TOOL, MaceItem.createToolProperties())
+                .repairable(Items.BREEZE_ROD)
+                .attributes(MaceItem.createAttributes())
+                .enchantable(15)
+                .component(DataComponents.WEAPON, new Weapon(1));
+    }
+
+    // modify bow durability
+    @ModifyArg(method = "<clinit>", slice = @Slice(
+            from = @At(value = "CONSTANT", args = "stringValue=bow")), at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/world/item/Items;registerItem(Ljava/lang/String;Ljava/util/function/Function;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;",
+            ordinal = 0
+    ))
+    private static Item.Properties preserved_blizzard$modifyBow(Item.Properties properties) {
+        return new Item.Properties().durability(465).enchantable(1);
     }
 }
