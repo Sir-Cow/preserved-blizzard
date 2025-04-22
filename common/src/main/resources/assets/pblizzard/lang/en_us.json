@@ -7,5 +7,15 @@
   "item.pblizzard.rhyolite_slab": "Rhyolite Slab",
   "item.pblizzard.polished_rhyolite_slab": "Polished Rhyolite Slab",
 
-  "itemgroup.pblizzard.items": "Preserved: Blizzard"
+  "itemgroup.pblizzard.items": "Preserved: Blizzard",
+
+  "sounds.pblizzard.enchant_click": "Enchantment Selected",
+  "sounds.pblizzard.enchant_one": "Enchantment Applied",
+  "sounds.pblizzard.enchant_two": "Enchantment Applied",
+  "sounds.pblizzard.enchant_three": "Enchantment Applied",
+  "sounds.pblizzard.enchant_open_flip_one": "Enchantment Selected",
+  "sounds.pblizzard.enchant_open_flip_two": "Enchantment Selected",
+  "sounds.pblizzard.enchant_open_flip_three": "Enchantment Selected",
+  "sounds.pblizzard.enchant_close_one": "Closed Enchanting Table",
+  "sounds.pblizzard.enchant_close_two": "Closed Enchanting Table"
 }
