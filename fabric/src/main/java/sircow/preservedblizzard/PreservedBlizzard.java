@@ -17,6 +17,7 @@ public class PreservedBlizzard implements ModInitializer {
             Registry.register(BuiltInRegistries.MENU, Constants.id("preserved_enchant"),
                     new ExtendedScreenHandlerType<>((pWindowID, pInventory, pData) -> new PreservedEnchantmentMenu(pWindowID, pInventory), BlockData.CODEC));
 
+    // codecs
     public record BlockData(boolean empty) {
         public static final StreamCodec<RegistryFriendlyByteBuf, BlockData> CODEC = StreamCodec.composite(
                 ByteBufCodecs.BOOL,
