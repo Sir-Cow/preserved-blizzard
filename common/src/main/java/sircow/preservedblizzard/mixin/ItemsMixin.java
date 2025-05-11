@@ -3,6 +3,8 @@ package sircow.preservedblizzard.mixin;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.Weapon;
+import net.minecraft.world.item.equipment.ArmorMaterials;
+import net.minecraft.world.item.equipment.ArmorType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -114,5 +116,39 @@ public class ItemsMixin {
     ))
     private static Item.Properties preserved_blizzard$modifyBow(Item.Properties properties) {
         return new Item.Properties().durability(465).enchantable(1);
+    }
+
+    // modify chainmail rarity
+    @ModifyArg(method = "<clinit>", slice = @Slice(
+            from = @At(value = "CONSTANT", args = "stringValue=chainmail_helmet")), at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/world/item/Items;registerItem(Ljava/lang/String;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;",
+            ordinal = 0
+    ))
+    private static Item.Properties preserved_blizzard$modifyChainmail1(Item.Properties properties) {
+        return new Item.Properties().humanoidArmor(ArmorMaterials.CHAINMAIL, ArmorType.HELMET).rarity(Rarity.COMMON);
+    }
+    @ModifyArg(method = "<clinit>", slice = @Slice(
+            from = @At(value = "CONSTANT", args = "stringValue=chainmail_chestplate")), at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/world/item/Items;registerItem(Ljava/lang/String;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;",
+            ordinal = 0
+    ))
+    private static Item.Properties preserved_blizzard$modifyChainmail2(Item.Properties properties) {
+        return new Item.Properties().humanoidArmor(ArmorMaterials.CHAINMAIL, ArmorType.CHESTPLATE).rarity(Rarity.COMMON);
+    }
+    @ModifyArg(method = "<clinit>", slice = @Slice(
+            from = @At(value = "CONSTANT", args = "stringValue=chainmail_leggings")), at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/world/item/Items;registerItem(Ljava/lang/String;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;",
+            ordinal = 0
+    ))
+    private static Item.Properties preserved_blizzard$modifyChainmail3(Item.Properties properties) {
+        return new Item.Properties().humanoidArmor(ArmorMaterials.CHAINMAIL, ArmorType.LEGGINGS).rarity(Rarity.COMMON);
+    }
+    @ModifyArg(method = "<clinit>", slice = @Slice(
+            from = @At(value = "CONSTANT", args = "stringValue=chainmail_boots")), at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/world/item/Items;registerItem(Ljava/lang/String;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;",
+            ordinal = 0
+    ))
+    private static Item.Properties preserved_blizzard$modifyChainmail4(Item.Properties properties) {
+        return new Item.Properties().humanoidArmor(ArmorMaterials.CHAINMAIL, ArmorType.BOOTS).rarity(Rarity.COMMON);
     }
 }

@@ -14,7 +14,7 @@ public class FabricModEvents {
             if (livingEntity instanceof Drowned drowned) {
                 ItemStack heldItem = drowned.getItemInHand(InteractionHand.MAIN_HAND);
                 if (heldItem.getItem() instanceof TridentItem) {
-                    ((Drowned) livingEntity).setDropChance(EquipmentSlot.MAINHAND, 0);
+                    drowned.setDropChance(EquipmentSlot.MAINHAND, 0);
                 }
             }
         });

@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 public class BlocksMixin {
     @ModifyArg(method = "<clinit>", slice = @Slice(
             from = @At(value = "CONSTANT", args = "stringValue=trial_spawner")), at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/world/level/block/Blocks;register(Ljava/lang/String;Ljava/util/function/Function;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)Lnet/minecraft/world/level/block/Block;"),
+            target = "Lnet/minecraft/world/level/block/Blocks;register(Ljava/lang/String;Ljava/util/function/Function;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)Lnet/minecraft/world/level/block/Block;", ordinal = 0),
             index = 2
     )
     private static BlockBehaviour.Properties preserved_blizzard$modifyTrialSpawner(BlockBehaviour.Properties properties) {

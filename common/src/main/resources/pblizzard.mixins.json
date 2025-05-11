@@ -8,6 +8,7 @@
     "AxeItemMixin",
     "BaseFireBlockMixin",
     "BlocksMixin",
+    "CarversMixin",
     "CompostorBlockMixin",
     "CrossbowMixin",
     "GameRulesMixin",

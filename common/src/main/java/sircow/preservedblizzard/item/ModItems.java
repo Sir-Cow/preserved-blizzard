@@ -11,21 +11,11 @@ import java.util.function.Function;
 
 public class ModItems {
 
-    private static ResourceKey<Item> moddedItemId(String name) {
-        return ResourceKey.create(Registries.ITEM, Constants.id(name));
-    }
-
-    public static Item registerItem(String name) {
-        return registerItem(moddedItemId(name), Item::new, new Item.Properties());
-    }
-
-    public static Item registerItem(ResourceKey<Item> key, Function<Item.Properties, Item> factory, Item.Properties properties) {
-        Item item = factory.apply(properties.setId(key));
-        if (item instanceof BlockItem blockitem) {
-            blockitem.registerBlocks(Item.BY_BLOCK, item);
-        }
-
-        return Registry.register(BuiltInRegistries.ITEM, key, item);
+    public static Item registerItem(String name, Function<Item.Properties, Item> itemFactory, Item.Properties properties) {
+        ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, Constants.id(name));
+        Item item = itemFactory.apply(properties.setId(itemKey));
+        Registry.register(BuiltInRegistries.ITEM, itemKey, item);
+        return item;
     }
 
     public static void registerModItems() {

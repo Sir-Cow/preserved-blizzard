@@ -18,9 +18,7 @@
         "main": [
             "sircow.preservedblizzard.PreservedBlizzard"
         ],
-        "client": [
-            "sircow.preservedblizzard.client.FabricPreservedBlizzardClient"
-        ]
+        "client": []
     },
     "mixins": [
         "${mod_id}.mixins.json",

@@ -4,7 +4,6 @@ import sircow.preservedblizzard.block.ModBlocks;
 import sircow.preservedblizzard.item.ModItemGroups;
 import sircow.preservedblizzard.item.ModItems;
 import sircow.preservedblizzard.platform.Services;
-import sircow.preservedblizzard.sound.ModSounds;
 
 public class CommonClass {
     public static void init() {
@@ -13,7 +12,6 @@ public class CommonClass {
             ModBlocks.registerModBlocks();
             ModItems.registerModItems();
             ModItemGroups.registerItemGroups();
-            ModSounds.registerSounds();
         }
     }
 }
