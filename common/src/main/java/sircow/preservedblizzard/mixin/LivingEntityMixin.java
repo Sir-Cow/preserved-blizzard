@@ -18,9 +18,11 @@ public class LivingEntityMixin {
 
         if (entity instanceof Player) {
             // if the entity is a player, always allow drops
-        } else if (damageSource.getEntity() instanceof Player) {
+        }
+        else if (damageSource.getEntity() instanceof Player) {
             // if the entity is a mob and killed by a player, allow drops
-        } else {
+        }
+        else {
             // otherwise, cancel drops
             ci.cancel();
         }
