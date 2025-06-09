@@ -17,8 +17,11 @@
     "LightningBoltMixin",
     "LivingEntityMixin",
     "MaceItemMixin",
+    "MinecraftServerMixin",
     "PortalShapeMixin",
+    "PrimaryLevelDataMixin",
     "ServerLevelMixin",
+    "ServerPlayerMixin",
     "ThrownTridentMixin",
     "TridentItemMixin",
     "ZombieMixin"
