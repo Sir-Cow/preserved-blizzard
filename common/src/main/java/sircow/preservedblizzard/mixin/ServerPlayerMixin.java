@@ -1,42 +1,64 @@
 package sircow.preservedblizzard.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.mojang.authlib.GameProfile;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import sircow.preservedblizzard.other.IPlayerTimeData;
+import sircow.preservedblizzard.effect.ModEffects;
 
 import java.util.Optional;
 
 @Mixin(ServerPlayer.class)
-public class ServerPlayerMixin implements IPlayerTimeData {
-    @Unique private Optional<Integer> onlineTimeTicks = Optional.of(0);
+public abstract class ServerPlayerMixin extends Player {
+    @Unique private boolean hasCheckedFirstJoin = false;
+    @Unique private Optional<Boolean> hasJoinedBefore = Optional.of(false);
 
-    @Override
-    public Optional<Integer> getOnlineTimeTicks() {
-        return this.onlineTimeTicks;
+    public ServerPlayerMixin(Level level, BlockPos pos, float yRot, GameProfile gameProfile) {
+        super(level, pos, yRot, gameProfile);
     }
 
-    @Override
-    public void setOnlineTimeTicks(int ticks) {
-        this.onlineTimeTicks = Optional.of(ticks);
+    @Inject(method = "addAdditionalSaveData", at = @At("HEAD"))
+    private void preserved_blizzard$addAdditionalSaveData(CompoundTag compoundTag, CallbackInfo ci) {
+        CompoundTag data = new CompoundTag();
+        data.putBoolean("pblizzard:hasJoinedBefore", true);
+        compoundTag.put("pblizzard:firstJoin", data);
     }
 
-    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void addAdditionalSaveData(CompoundTag compoundTag, CallbackInfo ci) {
-        compoundTag.putInt("pblizzard:online_time_ticks", this.onlineTimeTicks.orElseThrow());
+    @Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
+    private void preserved_blizzard$readAdditionalSaveData(CompoundTag compoundTag, CallbackInfo ci) {
+        this.hasJoinedBefore = compoundTag.getBoolean("pblizzard:hasJoinedBefore");
     }
 
-    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void yourModId_readAdditionalSaveData(CompoundTag compoundTag, CallbackInfo ci) {
-        if (compoundTag.contains("pblizzard:online_time_ticks")) {
-            this.onlineTimeTicks = compoundTag.getInt("pblizzard:online_time_ticks");
+    @WrapOperation(method = "restoreFrom", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/GameRules;getBoolean(Lnet/minecraft/world/level/GameRules$Key;)Z"))
+    private boolean preserved_blizzard$modifyKeepInventoryRule(GameRules instance, GameRules.Key<GameRules.BooleanValue> key, Operation<Boolean> original) {
+        ServerPlayer self = (ServerPlayer)(Object)this;
+        if (key == GameRules.RULE_KEEPINVENTORY) {
+            return original.call(instance, key) || self.hasEffect(ModEffects.WELL_RESTED);
         }
-        else {
-            this.onlineTimeTicks = Optional.of(0);
+
+        return original.call(instance, key);
+    }
+
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void preserved_blizzard$onTick(CallbackInfo ci) {
+        if (!hasCheckedFirstJoin) {
+            hasCheckedFirstJoin = true;
+            if (hasJoinedBefore.isPresent()) {
+                if (!hasJoinedBefore.get()) {
+                    this.addEffect(new MobEffectInstance(ModEffects.SUNSHINE_GRACE, 20 * 60 * 10, 0));
+                }
+            }
         }
     }
 }

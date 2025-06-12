@@ -18,6 +18,8 @@
     "LivingEntityMixin",
     "MaceItemMixin",
     "MinecraftServerMixin",
+    "MobMixin",
+    "PlayerMixin",
     "PortalShapeMixin",
     "PrimaryLevelDataMixin",
     "ServerLevelMixin",
