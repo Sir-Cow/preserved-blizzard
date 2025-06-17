@@ -52,7 +52,12 @@ public class FabricModEvents {
                     if (server != null) {
                         for (ServerPlayer serverPlayer : server.getPlayerList().getPlayers()) {
                             serverPlayer.addEffect(new MobEffectInstance(ModEffects.WELL_RESTED, 24000, 0, false, false, true));
-                            serverPlayer.displayClientMessage(Component.translatable("effect.pblizzard.well_rested_awake"), true);
+                            if (player.getUUID() == serverPlayer.getUUID()) {
+                                serverPlayer.displayClientMessage(Component.translatable("effect.pblizzard.well_rested_awake"), true);
+                            }
+                            else {
+                                serverPlayer.displayClientMessage(Component.translatable("effect.pblizzard.well_rested_awake_not_sleeping"), true);
+                            }
                         }
                     }
                 }

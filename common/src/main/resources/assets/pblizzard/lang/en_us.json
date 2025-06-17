@@ -2,5 +2,6 @@
   "effect.pblizzard.sunshine_grace": "Sunshine Grace",
   "effect.pblizzard.well_rested": "Well Rested",
   "effect.pblizzard.well_rested_awake": "You awaken feeling well rested.",
+  "effect.pblizzard.well_rested_awake_not_sleeping": "A new day dawns over you.",
   "effect.pblizzard.well_rested_consume": "Maybe that was just a bad dream..."
 }
