@@ -5,9 +5,9 @@ license = "${license}"
 [[mods]]
 modId = "${mod_id}"
 version = "${version}"
-displayName = "${mod_name}"
+displayName = "Preserved: Blizzard"
 #updateJSONURL=
-displayURL="https://github.com/Sir-Cow/preserved-blizzard"
+#displayURL=
 logoFile="icon.png"
 credits="${credits}"
 authors = "${mod_author}"
