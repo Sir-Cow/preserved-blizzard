@@ -16,6 +16,8 @@ import net.minecraft.world.item.TridentItem;
 import sircow.preservedblizzard.Constants;
 import sircow.preservedblizzard.effect.ModEffects;
 
+import java.util.Objects;
+
 public class FabricModEvents {
     public static void removeTridentDropFromDrowned() {
         ServerLivingEntityEvents.AFTER_DEATH.register((livingEntity, damageSource) -> {
@@ -39,7 +41,7 @@ public class FabricModEvents {
 
             // display message if player had well rested effect
             if (hadWellRestedEffectOnDeath) {
-                newPlayer.server.execute(() -> newPlayer.sendSystemMessage(Component.translatable("effect.pblizzard.well_rested_consume"), true));
+                Objects.requireNonNull(newPlayer.getServer()).execute(() -> newPlayer.sendSystemMessage(Component.translatable("effect.pblizzard.well_rested_consume"), true));
             }
         });
     }
