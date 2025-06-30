@@ -42,6 +42,5 @@ public class ModMessages {
 
     public static void registerMessages() {
         Constants.LOG.info("Registering Mod Messages for " + Constants.MOD_ID);
-        registerS2CPackets();
     }
 }
