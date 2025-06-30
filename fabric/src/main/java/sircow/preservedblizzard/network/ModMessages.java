@@ -35,8 +35,6 @@ public class ModMessages {
     }
 
     public static void registerS2CPackets() {
-        PayloadTypeRegistry.playS2C().register(PlayerPointsPayload.TYPE, PlayerPointsPayload.CODEC);
-
         ClientPlayNetworking.registerGlobalReceiver(PlayerPointsPayload.TYPE, (payload, context) -> context.client().execute(() -> ClientPointsManager.setPlayerPoints(payload.playerUUID(), payload.points())));
     }
 
