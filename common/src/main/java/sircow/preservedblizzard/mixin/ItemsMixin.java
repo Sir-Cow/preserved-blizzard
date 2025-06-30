@@ -15,14 +15,7 @@ import sircow.preservedblizzard.RegisterItemChecker;
 @Mixin(Items.class)
 public class ItemsMixin {
     // catch item names
-    @ModifyArg(
-            method = "<clinit>",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/world/item/Items;registerItem(Ljava/lang/String;Ljava/util/function/Function;)Lnet/minecraft/world/item/Item;"
-            ),
-            index = 0
-    )
+    @ModifyArg(method = "<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/Items;registerItem(Ljava/lang/String;Ljava/util/function/Function;)Lnet/minecraft/world/item/Item;"), index = 0)
     private static String preserved_blizzard$catchItemName(String name) {
         if (RegisterItemChecker.AXES.contains(name)) {
             preserved_blizzard$callFlip(name);

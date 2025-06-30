@@ -1,10 +1,7 @@
 package sircow.preservedblizzard.mixin;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementHolder;
-import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.DisplayInfo;
+import net.minecraft.advancements.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerAdvancements;
@@ -57,93 +54,97 @@ public abstract class PlayerAdvancementsMixin {
                 return;
             }
 
-            Set<ResourceLocation> awardedAdvancements = WorldDataManager.getPlayerAwardedAdvancements(server, serverPlayer.getUUID());
-            boolean wasNewAdvancement = awardedAdvancements.add(advancementId);
+            AdvancementProgress progress = serverPlayer.getAdvancements().getOrStartProgress(advancementHolder);
 
-            if (wasNewAdvancement) {
-                WorldDataManager.addPlayerAwardedAdvancement(server, serverPlayer.getUUID(), advancementId);
-                Advancement advancement = advancementHolder.value();
-                DisplayInfo display = advancement.display().orElse(null);
+            if (progress.isDone()) {
+                Set<ResourceLocation> awardedAdvancements = WorldDataManager.getPlayerAwardedAdvancements(server, serverPlayer.getUUID());
+                boolean wasNewAdvancement = awardedAdvancements.add(advancementId);
 
-                if (display != null) {
-                    AdvancementType type = display.getType();
-                    int points = 0;
+                if (wasNewAdvancement) {
+                    WorldDataManager.addPlayerAwardedAdvancement(server, serverPlayer.getUUID(), advancementId);
+                    Advancement advancement = advancementHolder.value();
+                    DisplayInfo display = advancement.display().orElse(null);
 
-                    if (type == AdvancementType.TASK) {
-                        points = 1;
-                    }
-                    else if (type == AdvancementType.GOAL) {
-                        points = 3;
-                    }
-                    else if (type == AdvancementType.CHALLENGE) {
-                        points = 7;
-                    }
+                    if (display != null) {
+                        AdvancementType type = display.getType();
+                        int points = 0;
 
-                    int currentPoints = WorldDataManager.getPlayerPoints(server, serverPlayer.getUUID());
-                    WorldDataManager.setPlayerPoints(server, serverPlayer.getUUID(), currentPoints + points);
-                    currentPoints = currentPoints + points;
+                        if (type == AdvancementType.TASK) {
+                            points = 1;
+                        }
+                        else if (type == AdvancementType.GOAL) {
+                            points = 3;
+                        }
+                        else if (type == AdvancementType.CHALLENGE) {
+                            points = 7;
+                        }
 
-                    UUID playerUUID = serverPlayer.getUUID();
-                    ServerPlayNetworking.send(serverPlayer, new ModMessages.PlayerPointsPayload(playerUUID, currentPoints));
+                        int currentPoints = WorldDataManager.getPlayerPoints(server, serverPlayer.getUUID());
+                        WorldDataManager.setPlayerPoints(server, serverPlayer.getUUID(), currentPoints + points);
+                        currentPoints = currentPoints + points;
 
-                    String oldRank = WorldDataManager.getPlayerRank(server, serverPlayer.getUUID());
-                    String newRank = oldRank;
+                        UUID playerUUID = serverPlayer.getUUID();
+                        ServerPlayNetworking.send(serverPlayer, new ModMessages.PlayerPointsPayload(playerUUID, currentPoints));
 
-                    boolean hasAllNonExcludedAdvancements = true;
+                        String oldRank = WorldDataManager.getPlayerRank(server, serverPlayer.getUUID());
+                        String newRank = oldRank;
 
-                    if (serverPlayer.getServer() != null) {
-                        for (AdvancementHolder allAdvancementHolder : serverPlayer.getServer().getAdvancements().getAllAdvancements()) {
-                            ResourceLocation currentAdvancementId = allAdvancementHolder.id();
-                            if (!EXCLUDED_ADVANCEMENTS.contains(currentAdvancementId) && !currentAdvancementId.getPath().startsWith("recipes/")) {
-                                if (!serverPlayer.getAdvancements().getOrStartProgress(allAdvancementHolder).isDone()) {
-                                    hasAllNonExcludedAdvancements = false;
-                                    break;
+                        boolean hasAllNonExcludedAdvancements = true;
+
+                        if (serverPlayer.getServer() != null) {
+                            for (AdvancementHolder allAdvancementHolder : serverPlayer.getServer().getAdvancements().getAllAdvancements()) {
+                                ResourceLocation currentAdvancementId = allAdvancementHolder.id();
+                                if (!EXCLUDED_ADVANCEMENTS.contains(currentAdvancementId) && !currentAdvancementId.getPath().startsWith("recipes/")) {
+                                    if (!serverPlayer.getAdvancements().getOrStartProgress(allAdvancementHolder).isDone()) {
+                                        hasAllNonExcludedAdvancements = false;
+                                        break;
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    if (hasAllNonExcludedAdvancements) {
-                        newRank = "infernal";
-                    }
-                    else {
-                        if (currentPoints >= 240) {
-                            newRank = "master";
-                        }
-                        else if (currentPoints >= 160) {
-                            newRank = "advanced";
-                        }
-                        else if (currentPoints >= 100) {
-                            newRank = "adequate";
-                        }
-                        else if (currentPoints >= 50) {
-                            newRank = "intermediate";
-                        }
-                        else if (currentPoints >= 20) {
-                            newRank = "beginner";
-                        }
-                        else if (currentPoints >= 6) {
-                            newRank = "starter";
-                        }
-                    }
-
-                    if (!newRank.equals(oldRank)) {
-                        WorldDataManager.setPlayerRank(server, serverPlayer.getUUID(), newRank);
-                        FabricModEvents.assignPlayerToRankTeam(serverPlayer);
-
-                        if ("infernal".equals(newRank)) {
-                            ModTriggers.MASTERY_INFERNAL.trigger(serverPlayer);
+                        if (hasAllNonExcludedAdvancements) {
+                            newRank = "infernal";
                         }
                         else {
-                            switch (newRank) {
-                                case "master": ModTriggers.MASTERY_MASTER.trigger(serverPlayer); break;
-                                case "advanced": ModTriggers.MASTERY_ADVANCED.trigger(serverPlayer); break;
-                                case "adequate": ModTriggers.MASTERY_ADEQUATE.trigger(serverPlayer); break;
-                                case "intermediate": ModTriggers.MASTERY_INTERMEDIATE.trigger(serverPlayer); break;
-                                case "beginner": ModTriggers.MASTERY_BEGINNER.trigger(serverPlayer); break;
-                                case "starter": ModTriggers.MASTERY_STARTER.trigger(serverPlayer); break;
-                                default:
-                                    break;
+                            if (currentPoints >= 240) {
+                                newRank = "master";
+                            }
+                            else if (currentPoints >= 160) {
+                                newRank = "advanced";
+                            }
+                            else if (currentPoints >= 100) {
+                                newRank = "adequate";
+                            }
+                            else if (currentPoints >= 50) {
+                                newRank = "intermediate";
+                            }
+                            else if (currentPoints >= 20) {
+                                newRank = "beginner";
+                            }
+                            else if (currentPoints >= 6) {
+                                newRank = "starter";
+                            }
+                        }
+
+                        if (!newRank.equals(oldRank)) {
+                            WorldDataManager.setPlayerRank(server, serverPlayer.getUUID(), newRank);
+                            FabricModEvents.assignPlayerToRankTeam(serverPlayer);
+
+                            if ("infernal".equals(newRank)) {
+                                ModTriggers.MASTERY_INFERNAL.trigger(serverPlayer);
+                            }
+                            else {
+                                switch (newRank) {
+                                    case "master": ModTriggers.MASTERY_MASTER.trigger(serverPlayer); break;
+                                    case "advanced": ModTriggers.MASTERY_ADVANCED.trigger(serverPlayer); break;
+                                    case "adequate": ModTriggers.MASTERY_ADEQUATE.trigger(serverPlayer); break;
+                                    case "intermediate": ModTriggers.MASTERY_INTERMEDIATE.trigger(serverPlayer); break;
+                                    case "beginner": ModTriggers.MASTERY_BEGINNER.trigger(serverPlayer); break;
+                                    case "starter": ModTriggers.MASTERY_STARTER.trigger(serverPlayer); break;
+                                    default:
+                                        break;
+                                }
                             }
                         }
                     }

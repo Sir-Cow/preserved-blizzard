@@ -9,7 +9,6 @@
     "BaseFireBlockMixin",
     "BlocksMixin",
     "CarversMixin",
-    "CompostorBlockMixin",
     "CrossbowMixin",
     "GameRulesMixin",
     "IglooPiecesMixin",
@@ -36,4 +35,3 @@
     "defaultRequire": 1
   }
 }
-
