@@ -1,0 +1,27 @@
+{
+  "parent": "pblizzard:mastery/master",
+  "criteria": {
+    "mastery_infernal": {
+      "trigger": "pblizzard:mastery_infernal"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.pblizzard.mastery.infernal.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:netherite_ingot"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.pblizzard.mastery.infernal.title"
+    }
+  },
+  "requirements": [
+    [
+      "mastery_infernal"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

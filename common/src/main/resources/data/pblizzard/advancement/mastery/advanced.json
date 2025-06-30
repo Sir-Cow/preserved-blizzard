@@ -1,0 +1,27 @@
+{
+  "parent": "pblizzard:mastery/adequate",
+  "criteria": {
+    "mastery_advanced": {
+      "trigger": "pblizzard:mastery_advanced"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.pblizzard.mastery.advanced.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:diamond"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.pblizzard.mastery.advanced.title"
+    }
+  },
+  "requirements": [
+    [
+      "mastery_advanced"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

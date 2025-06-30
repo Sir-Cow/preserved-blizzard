@@ -3,5 +3,24 @@
   "effect.pblizzard.well_rested": "Well Rested",
   "effect.pblizzard.well_rested_awake": "You awaken feeling well rested.",
   "effect.pblizzard.well_rested_awake_not_sleeping": "A new day dawns over you.",
-  "effect.pblizzard.well_rested_consume": "Maybe that was just a bad dream..."
+  "effect.pblizzard.well_rested_consume": "Maybe that was just a bad dream...",
+
+  "advancements.pblizzard.menu.mastery_points": "Mastery Points: %s",
+
+  "advancements.pblizzard.mastery.world_join.title": "Mastery",
+  "advancements.pblizzard.mastery.world_join.description": "Complete Advancements to earn Mastery ranks!",
+  "advancements.pblizzard.mastery.adequate.title": "Adequate",
+  "advancements.pblizzard.mastery.adequate.description": "Collect 100 Mastery points",
+  "advancements.pblizzard.mastery.advanced.title": "Advanced",
+  "advancements.pblizzard.mastery.advanced.description": "Collect 160 Mastery points",
+  "advancements.pblizzard.mastery.beginner.title": "Beginner",
+  "advancements.pblizzard.mastery.beginner.description": "Collect 20 Mastery points",
+  "advancements.pblizzard.mastery.infernal.title": "Infernal",
+  "advancements.pblizzard.mastery.infernal.description": "Complete every single Advancement",
+  "advancements.pblizzard.mastery.intermediate.title": "Intermediate",
+  "advancements.pblizzard.mastery.intermediate.description": "Collect 50 Mastery points",
+  "advancements.pblizzard.mastery.master.title": "Master",
+  "advancements.pblizzard.mastery.master.description": "Collect 240 Mastery points",
+  "advancements.pblizzard.mastery.starter.title": "Starter",
+  "advancements.pblizzard.mastery.starter.description": "Collect 6 Mastery points"
 }

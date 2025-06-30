@@ -1,12 +1,12 @@
 modLoader = "javafml"
 loaderVersion = "${neoforge_loader_version_range}"
 license = "${license}"
-#issueTrackerURL=
+issueTrackerURL="https://github.com/Sir-Cow/preserved-blizzard/issues"
 [[mods]]
 modId = "${mod_id}"
 version = "${version}"
 displayName = "Preserved: Blizzard"
-#updateJSONURL=
+updateJSONURL="https://github.com/Sir-Cow/preserved-blizzard"
 #displayURL=
 logoFile="icon.png"
 credits="${credits}"

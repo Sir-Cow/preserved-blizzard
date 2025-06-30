@@ -9,7 +9,8 @@
     ],
     "contact": {
         "homepage": "",
-        "sources": ""
+        "sources": "https://github.com/Sir-Cow/preserved-blizzard",
+        "issues": "https://github.com/Sir-Cow/preserved-blizzard/issues"
     },
     "license": "${license}",
     "icon": "icon.png",

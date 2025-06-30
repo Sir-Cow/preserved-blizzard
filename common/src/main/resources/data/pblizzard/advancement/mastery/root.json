@@ -1,0 +1,27 @@
+{
+  "criteria": {
+    "world_join": {
+      "trigger": "pblizzard:world_join"
+    }
+  },
+  "display": {
+    "background": "pblizzard:gui/advancements/backgrounds/white_concrete",
+    "description": {
+      "translate": "advancements.pblizzard.mastery.world_join.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:diamond_block"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.pblizzard.mastery.world_join.title"
+    }
+  },
+  "requirements": [
+    [
+      "world_join"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

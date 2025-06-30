@@ -1,0 +1,27 @@
+{
+  "parent": "pblizzard:mastery/intermediate",
+  "criteria": {
+    "mastery_adequate": {
+      "trigger": "pblizzard:mastery_adequate"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.pblizzard.mastery.adequate.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:gold_ingot"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.pblizzard.mastery.adequate.title"
+    }
+  },
+  "requirements": [
+    [
+      "mastery_adequate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

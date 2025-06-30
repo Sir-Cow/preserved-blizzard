@@ -1,0 +1,27 @@
+{
+  "parent": "pblizzard:mastery/root",
+  "criteria": {
+    "mastery_starter": {
+      "trigger": "pblizzard:mastery_starter"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.pblizzard.mastery.starter.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:flint"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.pblizzard.mastery.starter.title"
+    }
+  },
+  "requirements": [
+    [
+      "mastery_starter"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

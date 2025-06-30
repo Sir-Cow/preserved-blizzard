@@ -4,7 +4,9 @@
   "package": "sircow.preservedblizzard.mixin",
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_21",
-  "mixins": [],
+  "mixins": [
+    "PlayerAdvancementsMixin"
+  ],
   "client": [],
   "server": [],
   "injectors": {

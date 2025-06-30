@@ -28,7 +28,9 @@
     "TridentItemMixin",
     "ZombieMixin"
   ],
-  "client": [],
+  "client": [
+    "AdvancementsScreenMixin"
+  ],
   "server": [],
   "injectors": {
     "defaultRequire": 1
