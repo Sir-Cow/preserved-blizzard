@@ -6,6 +6,7 @@ import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerAdvancements;
 import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,10 +15,10 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import sircow.preservedblizzard.CommonClass;
 import sircow.preservedblizzard.Constants;
 import sircow.preservedblizzard.network.ModMessages;
 import sircow.preservedblizzard.other.FabricModEvents;
+import sircow.preservedblizzard.other.WorldDataManager;
 import sircow.preservedblizzard.trigger.ModTriggers;
 
 import java.util.*;
@@ -50,12 +51,17 @@ public abstract class PlayerAdvancementsMixin {
         if (cir.getReturnValue()) {
             ServerPlayer serverPlayer = this.player;
             ResourceLocation advancementId = advancementHolder.id();
+            MinecraftServer server = serverPlayer.getServer();
 
             if (EXCLUDED_ADVANCEMENTS.contains(advancementId) || advancementId.getPath().startsWith("recipes/")) {
                 return;
             }
 
-            if (CommonClass.playerAwardedAdvancements.computeIfAbsent(serverPlayer.getUUID(), k -> new HashSet<>()).add(advancementId)) {
+            Set<ResourceLocation> awardedAdvancements = WorldDataManager.getPlayerAwardedAdvancements(server, serverPlayer.getUUID());
+            boolean wasNewAdvancement = awardedAdvancements.add(advancementId);
+
+            if (wasNewAdvancement) {
+                WorldDataManager.addPlayerAwardedAdvancement(server, serverPlayer.getUUID(), advancementId);
                 Advancement advancement = advancementHolder.value();
                 DisplayInfo display = advancement.display().orElse(null);
 
@@ -73,18 +79,17 @@ public abstract class PlayerAdvancementsMixin {
                         points = 7;
                     }
 
-                    CommonClass.playerPoints.merge(serverPlayer.getUUID(), points, Integer::sum);
-                    int currentPoints = CommonClass.playerPoints.get(serverPlayer.getUUID());
+                    int currentPoints = WorldDataManager.getPlayerPoints(server, serverPlayer.getUUID());
+                    WorldDataManager.setPlayerPoints(server, serverPlayer.getUUID(), currentPoints + points);
+                    currentPoints = currentPoints + points;
 
                     UUID playerUUID = serverPlayer.getUUID();
-                    int currentTotalPoints = CommonClass.playerPoints.getOrDefault(playerUUID, 0);
-                    ServerPlayNetworking.send(serverPlayer, new ModMessages.PlayerPointsPayload(playerUUID, currentTotalPoints));
+                    ServerPlayNetworking.send(serverPlayer, new ModMessages.PlayerPointsPayload(playerUUID, currentPoints));
 
-                    String oldRank = CommonClass.PLAYER_RANKS.getOrDefault(serverPlayer.getUUID(), "");
+                    String oldRank = WorldDataManager.getPlayerRank(server, serverPlayer.getUUID());
                     String newRank = oldRank;
 
                     boolean hasAllNonExcludedAdvancements = true;
-                    Set<ResourceLocation> missingAdvancements = new HashSet<>();
 
                     if (serverPlayer.getServer() != null) {
                         for (AdvancementHolder allAdvancementHolder : serverPlayer.getServer().getAdvancements().getAllAdvancements()) {
@@ -92,7 +97,7 @@ public abstract class PlayerAdvancementsMixin {
                             if (!EXCLUDED_ADVANCEMENTS.contains(currentAdvancementId) && !currentAdvancementId.getPath().startsWith("recipes/")) {
                                 if (!serverPlayer.getAdvancements().getOrStartProgress(allAdvancementHolder).isDone()) {
                                     hasAllNonExcludedAdvancements = false;
-                                    missingAdvancements.add(currentAdvancementId);
+                                    break;
                                 }
                             }
                         }
@@ -123,7 +128,7 @@ public abstract class PlayerAdvancementsMixin {
                     }
 
                     if (!newRank.equals(oldRank)) {
-                        CommonClass.PLAYER_RANKS.put(serverPlayer.getUUID(), newRank);
+                        WorldDataManager.setPlayerRank(server, serverPlayer.getUUID(), newRank);
                         FabricModEvents.assignPlayerToRankTeam(serverPlayer);
 
                         if ("infernal".equals(newRank)) {

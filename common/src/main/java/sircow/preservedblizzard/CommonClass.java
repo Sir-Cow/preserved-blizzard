@@ -1,7 +1,5 @@
 package sircow.preservedblizzard;
 
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Filter;
 import org.apache.logging.log4j.core.LogEvent;
@@ -14,12 +12,6 @@ import sircow.preservedblizzard.trigger.ModTriggers;
 import java.util.*;
 
 public class CommonClass {
-    public static final Map<UUID, Integer> playerPoints = new HashMap<>();
-    public static final Map<UUID, Set<ResourceLocation>> playerAwardedAdvancements = new HashMap<>();
-    public static final Map<UUID, String> PLAYER_RANKS = new HashMap<>();
-    public static final Map<String, Component> RANK_PREFIXES = new HashMap<>();
-    public static final Map<String, Component> RANK_SUFFIXES = new HashMap<>();
-
     public static void init() {
         if (Services.PLATFORM.isModLoaded("pblizzard")) {
             Constants.LOG.info("Initialising Preserved: Blizzard");

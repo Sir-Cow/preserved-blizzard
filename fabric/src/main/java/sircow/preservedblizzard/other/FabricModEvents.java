@@ -20,7 +20,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TridentItem;
 import net.minecraft.world.scores.PlayerTeam;
 import net.minecraft.world.scores.Scoreboard;
-import sircow.preservedblizzard.CommonClass;
 import sircow.preservedblizzard.Constants;
 import sircow.preservedblizzard.effect.ModEffects;
 import sircow.preservedblizzard.network.ModMessages;
@@ -82,21 +81,20 @@ public class FabricModEvents {
 
 
     // masteries
-    private static void addRank(String rankId, Component prefix, Component suffix) {
-        CommonClass.RANK_PREFIXES.put(rankId, prefix);
-        CommonClass.RANK_SUFFIXES.put(rankId, suffix);
-    }
-
     private static String getPlayerRankId(UUID playerUuid) {
-        return CommonClass.PLAYER_RANKS.getOrDefault(playerUuid, "");
+        if (currentServer == null) {
+            Constants.LOG.warn("currentServer is null when trying to get player rank for {}", playerUuid);
+            return "";
+        }
+        return WorldDataManager.getPlayerRank(currentServer, playerUuid);
     }
 
     private static Component getPrefixForRank(String rankId) {
-        return CommonClass.RANK_PREFIXES.getOrDefault(rankId, Component.empty());
+        return WorldDataManager.RANK_PREFIXES.getOrDefault(rankId, Component.empty());
     }
 
     private static Component getSuffixForRank(String rankId) {
-        return CommonClass.RANK_SUFFIXES.getOrDefault(rankId, Component.empty());
+        return WorldDataManager.RANK_SUFFIXES.getOrDefault(rankId, Component.empty());
     }
 
     private static void createOrUpdateAllRankTeams() {
@@ -139,15 +137,6 @@ public class FabricModEvents {
     }
 
     public static void initialiseMasteries() {
-        addRank("starter", Component.literal("\uE001 "), Component.empty());
-        addRank("beginner", Component.literal("\uE002 "), Component.empty());
-        addRank("intermediate", Component.literal("\uE003 "), Component.empty());
-        addRank("adequate", Component.literal("\uE004 "), Component.empty());
-        addRank("advanced", Component.literal("\uE005 "), Component.empty());
-        addRank("master", Component.literal("\uE006 "), Component.empty());
-        addRank("infernal", Component.literal("\uE007 "), Component.empty());
-        addRank("placeholder", Component.literal("\uE000 "), Component.empty());
-
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
             currentServer = server;
             createOrUpdateAllRankTeams();
@@ -158,15 +147,13 @@ public class FabricModEvents {
         });
 
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
-            if (!CommonClass.PLAYER_RANKS.containsKey(handler.player.getUUID())) {
-                if (!Services.PLATFORM.isModLoaded("pinferno")) {
-                    ModTriggers.WORLD_JOIN.trigger(handler.player);
-                }
+            if (!Services.PLATFORM.isModLoaded("pinferno")) {
+                ModTriggers.WORLD_JOIN.trigger(handler.player);
             }
             assignPlayerToRankTeam(handler.player);
 
             UUID playerUUID = handler.player.getUUID();
-            int points = CommonClass.playerPoints.getOrDefault(playerUUID, 0);
+            int points = WorldDataManager.getPlayerPoints(server, playerUUID);
             ServerPlayNetworking.send(handler.player, new ModMessages.PlayerPointsPayload(playerUUID, points));
         });
     }
