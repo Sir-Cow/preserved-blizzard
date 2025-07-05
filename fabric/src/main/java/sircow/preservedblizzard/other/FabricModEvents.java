@@ -15,6 +15,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.Drowned;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TridentItem;
@@ -58,6 +59,21 @@ public class FabricModEvents {
         });
     }
 
+    public static void removeEffectWhenPlayerDamagesHostile() {
+        ServerLivingEntityEvents.ALLOW_DAMAGE.register((entity, source, amount) -> {
+            if (!(entity instanceof Monster)) {
+                return true;
+            }
+
+            if (source.getEntity() instanceof ServerPlayer player) {
+                if (player.hasEffect(ModEffects.SUNSHINE_GRACE)) {
+                    player.removeEffect(ModEffects.SUNSHINE_GRACE);
+                }
+            }
+            return true;
+        });
+    }
+
     public static void modifySleeping() {
         EntitySleepEvents.STOP_SLEEPING.register((entity, sleepingPos) -> {
             if (entity instanceof Player player) {
@@ -78,7 +94,6 @@ public class FabricModEvents {
             }
         });
     }
-
 
     // masteries
     private static String getPlayerRankId(UUID playerUuid) {
@@ -171,9 +186,10 @@ public class FabricModEvents {
     }
 
     public static void registerModEvents() {
-        Constants.LOG.info("Registering Fabric Mod Events for " + Constants.MOD_ID);
+        // Constants.LOG.info("Registering Fabric Mod Events for " + Constants.MOD_ID);
         removeTridentDropFromDrowned();
         handleEntityDeath();
+        removeEffectWhenPlayerDamagesHostile();
         modifySleeping();
         initialiseMasteries();
         if (Services.PLATFORM.isModLoaded("pinferno")) {

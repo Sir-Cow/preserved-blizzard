@@ -39,7 +39,7 @@ public class ModMessages {
     }
 
     public static void registerMessages() {
-        Constants.LOG.info("Registering Mod Messages for " + Constants.MOD_ID);
+        // Constants.LOG.info("Registering Mod Messages for " + Constants.MOD_ID);
         PayloadTypeRegistry.playS2C().register(PlayerPointsPayload.TYPE, PlayerPointsPayload.CODEC);
     }
 }

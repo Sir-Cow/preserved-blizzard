@@ -26,7 +26,7 @@ public class TridentItemMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/Projectile;spawnProjectileFromRotation(Lnet/minecraft/world/entity/projectile/Projectile$ProjectileFactory;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;FFF)Lnet/minecraft/world/entity/projectile/Projectile;"),
             index = 5
     )
-    private float preserved_inferno$modifyVelocity(float inaccuracy) {
+    private float preserved_blizzard$modifyVelocity(float inaccuracy) {
         return 3.5F;
     }
     // modify accuracy

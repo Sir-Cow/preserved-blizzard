@@ -21,6 +21,6 @@ public class ModTriggers {
     }
 
     public static void registerTriggers() {
-        Constants.LOG.info("Registering Mod Triggers for " + Constants.MOD_ID);
+       // Constants.LOG.info("Registering Mod Triggers for " + Constants.MOD_ID);
     }
 }
