@@ -44,8 +44,10 @@ public class FabricModEvents {
     }
 
     public static void handleEntityDeath() {
-        ServerPlayerEvents.ALLOW_DEATH.register((player, damageSource, damageAmount) -> {
-            TempInventoryStorage.savePlayerInventory(player);
+        ServerLivingEntityEvents.ALLOW_DEATH.register((livingEntity, damageSource, damageAmount) -> {
+            if (livingEntity instanceof Player player) {
+                TempInventoryStorage.savePlayerInventory(player);
+            }
             return true;
         });
 

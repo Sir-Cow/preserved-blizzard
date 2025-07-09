@@ -1,8 +1,11 @@
 package sircow.preservedblizzard.other;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Inventory;
@@ -33,7 +36,9 @@ public class TempInventoryStorage {
                 if (!stack.isEmpty()) {
                     CompoundTag tag = new CompoundTag();
                     tag.putByte("Slot", (byte) i);
-                    tag.store("Item", ItemStack.CODEC, stack);
+                    var ops = RegistryOps.create(NbtOps.INSTANCE, player.level().registryAccess());
+                    ItemStack.CODEC.encodeStart(ops, stack).resultOrPartial(error -> {
+                    }).ifPresent(encoded -> tag.put("Item", encoded));
                     inventoryTag.add(tag);
                 }
             }
@@ -42,7 +47,9 @@ public class TempInventoryStorage {
                 ItemStack stack = player.getItemBySlot(slot);
                 if (!stack.isEmpty()) {
                     CompoundTag tag = getCompoundTag(slot);
-                    tag.store("Item", ItemStack.CODEC, stack);
+                    var ops = RegistryOps.create(NbtOps.INSTANCE, player.level().registryAccess());
+                    ItemStack.CODEC.encodeStart(ops, stack).resultOrPartial(error -> {
+                    }).ifPresent(encoded -> tag.put("Item", encoded));
                     inventoryTag.add(tag);
                 }
             }
@@ -51,7 +58,9 @@ public class TempInventoryStorage {
             if (!offhand.isEmpty()) {
                 CompoundTag tag = new CompoundTag();
                 tag.putByte("Slot", (byte) 150);
-                tag.store("Item", ItemStack.CODEC, offhand);
+                var ops = RegistryOps.create(NbtOps.INSTANCE, player.level().registryAccess());
+                ItemStack.CODEC.encodeStart(ops, offhand).resultOrPartial(error -> {
+                }).ifPresent(encoded -> tag.put("Item", encoded));
                 inventoryTag.add(tag);
             }
             SAVED_INVENTORIES.put(player.getUUID(), inventoryTag);
@@ -88,7 +97,10 @@ public class TempInventoryStorage {
                 CompoundTag tag = (CompoundTag) value;
                 int slotId = tag.getByteOr("Slot", (byte) 0) & 255;
 
-                Optional<ItemStack> stackOpt = tag.read("Item", ItemStack.CODEC);
+                var ops = RegistryOps.create(NbtOps.INSTANCE, player.level().registryAccess());
+                Optional<ItemStack> stackOpt = Optional.ofNullable(tag.get("Item"))
+                        .flatMap(itemTag -> ItemStack.CODEC.decode(ops, itemTag).result())
+                        .map(Pair::getFirst);
                 ItemStack stack = stackOpt.orElse(ItemStack.EMPTY);
 
                 if (!stack.isEmpty()) {

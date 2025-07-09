@@ -25,7 +25,8 @@ public class CommonClass {
     public static void suppressSpecificLogLines() {
         Logger rootLogger = (Logger) LogManager.getRootLogger();
         final List<String> suppressedMessages = Arrays.asList(
-                "Couldn't parse data file 'minecraft:shield'"
+                "Couldn't parse data file 'minecraft:shield'",
+                "Tried to add entity minecraft:zombie_villager but it was marked as removed already"
         );
 
         rootLogger.addFilter(new AbstractFilter() {
