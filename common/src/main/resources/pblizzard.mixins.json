@@ -24,7 +24,6 @@
     "PrimaryLevelDataMixin",
     "ServerExplosionMixin",
     "ServerGamePacketListenerImplMixin",
-    "ServerLevelMixin",
     "ServerPlayerMixin",
     "ThrownTridentMixin",
     "TridentItemMixin",
