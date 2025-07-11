@@ -1,8 +1,11 @@
 package sircow.preservedblizzard.other;
 
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
+import sircow.preservedblizzard.network.ModMessages;
 
 import java.util.*;
 
@@ -44,6 +47,16 @@ public class WorldDataManager {
     public static void setPlayerPoints(MinecraftServer server, UUID playerUUID, int points) {
         getWorldData(server).playerPoints.put(playerUUID, points);
         getWorldData(server).setDirty();
+
+        ServerPlayer player = server.getPlayerList().getPlayer(playerUUID);
+        if (player != null) {
+            ServerPlayNetworking.send(player, new ModMessages.PlayerPointsPayload(playerUUID, points));
+            for (ServerPlayer other : server.getPlayerList().getPlayers()) {
+                if (!other.getUUID().equals(playerUUID)) {
+                    ServerPlayNetworking.send(other, new ModMessages.PlayerPointsPayload(playerUUID, points));
+                }
+            }
+        }
     }
 
     public static String getPlayerRank(MinecraftServer server, UUID playerUUID) {
