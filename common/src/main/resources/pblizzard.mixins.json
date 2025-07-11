@@ -30,7 +30,8 @@
     "ZombieMixin"
   ],
   "client": [
-    "AdvancementsScreenMixin"
+    "AdvancementsScreenMixin",
+    "PlayerTabOverlayMixin"
   ],
   "server": [],
   "injectors": {
