@@ -21,7 +21,7 @@ public class MinecraftServerMixin {
         IWorldBorderStatus borderStatus = (IWorldBorderStatus) server.overworld().getLevelData();
 
         if (!borderStatus.isWorldBorderSetPersistent()) {
-            server.overworld().getWorldBorder().setSize(400.00);
+            server.overworld().getWorldBorder().setSize(1000.00);
             borderStatus.setWorldBorderSetPersistent(true);
         }
     }
@@ -55,7 +55,7 @@ public class MinecraftServerMixin {
     @Unique
     private static double getNewSize(double currentDiameter, int onlinePlayers) {
         double ratePerHour = 60.0D / (Math.log(Math.pow(1.0D + 0.375D * currentDiameter, 2.25D)));
-        double finalRatePerHour = ratePerHour * Math.pow((1 + ((double) onlinePlayers / 4)), 2);
+        double finalRatePerHour = ratePerHour * Math.pow((1 + ((double) (onlinePlayers + 4) / 4)), 2);
         double increasePerTick = finalRatePerHour / TICKS_PER_HOUR;
         double newSize = currentDiameter + increasePerTick;
 
