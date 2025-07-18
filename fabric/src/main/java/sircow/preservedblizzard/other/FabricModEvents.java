@@ -137,10 +137,10 @@ public class FabricModEvents {
 
         Scoreboard scoreboard = currentServer.getScoreboard();
         String playerRankId = getPlayerRankId(player.getUUID());
-
-        PlayerTeam currentTeam = scoreboard.getPlayersTeam(player.getName().getString());
+        String scoreboardEntry = player.getScoreboardName();
+        PlayerTeam currentTeam = scoreboard.getPlayersTeam(scoreboardEntry);
         if (currentTeam != null && !currentTeam.getName().equals(playerRankId)) {
-            scoreboard.removePlayerFromTeam(player.getName().getString());
+            scoreboard.removePlayerFromTeam(scoreboardEntry);
         }
 
         PlayerTeam targetTeam = scoreboard.getPlayerTeam(playerRankId);
@@ -150,30 +150,36 @@ public class FabricModEvents {
             targetTeam.setPlayerSuffix(getSuffixForRank(playerRankId));
         }
 
-        scoreboard.addPlayerToTeam(player.getName().getString(), targetTeam);
+        if (!targetTeam.getPlayers().contains(scoreboardEntry)) {
+            scoreboard.addPlayerToTeam(scoreboardEntry, targetTeam);
+        }
     }
+
 
     public static void initialiseMasteries() {
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
             currentServer = server;
             createOrUpdateAllRankTeams();
+            for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+                WorldDataManager.syncPlayerPointsWithAdvancements(server, player);
+            }
         });
 
-        ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
-            currentServer = null;
-        });
+        ServerLifecycleEvents.SERVER_STOPPED.register(server -> currentServer = null);
 
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+            ServerPlayer player = handler.player;
             if (!Services.PLATFORM.isModLoaded("pinferno")) {
-                ModTriggers.WORLD_JOIN.trigger(handler.player);
+                ModTriggers.WORLD_JOIN.trigger(player);
             }
-            assignPlayerToRankTeam(handler.player);
+            assignPlayerToRankTeam(player);
+            WorldDataManager.syncPlayerPointsWithAdvancements(server, player);
 
-            UUID playerUUID = handler.player.getUUID();
-            int points = WorldDataManager.getPlayerPoints(server, playerUUID);
-            ServerPlayNetworking.send(handler.player, new ModMessages.PlayerPointsPayload(playerUUID, points));
+            int currentPoints = WorldDataManager.getPlayerPoints(server, player.getUUID());
+            ServerPlayNetworking.send(player, new ModMessages.PlayerPointsPayload(player.getUUID(), currentPoints));
         });
     }
+
 
     public static void checkInitialAdvancement() {
         ServerTickEvents.END_SERVER_TICK.register(server -> {
