@@ -1,4 +1,4 @@
-package sircow.preservedblizzard.mixin;
+package sircow.preservedblizzard.mixin.betteradvancements;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -15,7 +15,7 @@ import sircow.preservedblizzard.client.ClientPointsManager;
 @Mixin(targets = "betteradvancements.common.gui.BetterAdvancementsScreen")
 public class BetterAdvancementsScreenMixin {
     @Dynamic
-    @Inject(method = "render", at = @At("TAIL"))
+    @Inject(method = "method_25394", at = @At("TAIL"), remap = false)
     private void preserved_blizzard$renderPoints(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null) return;

@@ -1,0 +1,15 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "sircow.preservedblizzard.mixin.betteradvancements",
+  "compatibilityLevel": "JAVA_18",
+  "plugin": "sircow.preservedblizzard.mixin.BetterAdvancementsMixinPlugin",
+  "mixins": [
+    "BetterAdvancementsScreenMixin"
+  ],
+  "client": [],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
