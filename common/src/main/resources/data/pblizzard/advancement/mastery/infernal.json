@@ -1,17 +1,19 @@
 {
-  "parent": "pblizzard:mastery/master",
+  "parent": "pblizzard:mastery/champion",
   "criteria": {
     "mastery_infernal": {
       "trigger": "pblizzard:mastery_infernal"
     }
   },
   "display": {
+    "announce_to_chat": false,
     "description": {
       "translate": "advancements.pblizzard.mastery.infernal.description"
     },
+    "frame": "challenge",
     "icon": {
       "count": 1,
-      "id": "minecraft:netherite_ingot"
+      "id": "minecraft:blaze_powder"
     },
     "show_toast": true,
     "title": {

@@ -6,12 +6,13 @@
     }
   },
   "display": {
+    "announce_to_chat": false,
     "description": {
       "translate": "advancements.pblizzard.mastery.beginner.description"
     },
     "icon": {
       "count": 1,
-      "id": "minecraft:copper_ingot"
+      "id": "minecraft:coal"
     },
     "show_toast": true,
     "title": {

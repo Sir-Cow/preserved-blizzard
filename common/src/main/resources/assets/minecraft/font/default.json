@@ -19,7 +19,7 @@
             "type": "bitmap",
             "file": "pblizzard:font/adequate_rank.png",
             "chars": [
-                "\uE004"
+                "\uE005"
             ],
             "height": 7,
             "ascent": 7,
@@ -29,7 +29,7 @@
             "type": "bitmap",
             "file": "pblizzard:font/advanced_rank.png",
             "chars": [
-                "\uE005"
+                "\uE006"
             ],
             "height": 7,
             "ascent": 7,
@@ -47,9 +47,9 @@
         },
         {
             "type": "bitmap",
-            "file": "pblizzard:font/infernal_rank.png",
+            "file": "pblizzard:font/champion_rank.png",
             "chars": [
-                "\uE007"
+                "\uE008"
             ],
             "height": 7,
             "ascent": 7,
@@ -57,9 +57,19 @@
         },
         {
             "type": "bitmap",
-            "file": "pblizzard:font/intermediate_rank.png",
+            "file": "pblizzard:font/disciple_rank.png",
             "chars": [
-                "\uE003"
+                "\uE004"
+            ],
+            "height": 7,
+            "ascent": 7,
+            "oversample": 1.0
+        },
+        {
+            "type": "bitmap",
+            "file": "pblizzard:font/infernal_rank.png",
+            "chars": [
+                "\uE009"
             ],
             "height": 7,
             "ascent": 7,
@@ -69,7 +79,17 @@
             "type": "bitmap",
             "file": "pblizzard:font/master_rank.png",
             "chars": [
-                "\uE006"
+                "\uE007"
+            ],
+            "height": 7,
+            "ascent": 7,
+            "oversample": 1.0
+        },
+        {
+            "type": "bitmap",
+            "file": "pblizzard:font/novice_rank.png",
+            "chars": [
+                "\uE003"
             ],
             "height": 7,
             "ascent": 7,

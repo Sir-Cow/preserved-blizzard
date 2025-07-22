@@ -5,7 +5,7 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.DisplayInfo;
-import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -17,23 +17,39 @@ import java.util.*;
 public class WorldDataManager {
     public static final Map<String, Component> RANK_PREFIXES = new HashMap<>();
     public static final Map<String, Component> RANK_SUFFIXES = new HashMap<>();
+    private static final List<String> RANK_ORDER = List.of(
+            "",
+            "starter",
+            "beginner",
+            "novice",
+            "disciple",
+            "adequate",
+            "advanced",
+            "master",
+            "champion",
+            "infernal"
+    );
 
     static {
         RANK_PREFIXES.put("starter", Component.literal("\uE001 "));
         RANK_PREFIXES.put("beginner", Component.literal("\uE002 "));
-        RANK_PREFIXES.put("intermediate", Component.literal("\uE003 "));
-        RANK_PREFIXES.put("adequate", Component.literal("\uE004 "));
-        RANK_PREFIXES.put("advanced", Component.literal("\uE005 "));
-        RANK_PREFIXES.put("master", Component.literal("\uE006 "));
-        RANK_PREFIXES.put("infernal", Component.literal("\uE007 "));
+        RANK_PREFIXES.put("novice", Component.literal("\uE003 "));
+        RANK_PREFIXES.put("disciple", Component.literal("\uE004 "));
+        RANK_PREFIXES.put("adequate", Component.literal("\uE005 "));
+        RANK_PREFIXES.put("advanced", Component.literal("\uE006 "));
+        RANK_PREFIXES.put("master", Component.literal("\uE007 "));
+        RANK_PREFIXES.put("champion", Component.literal("\uE008 "));
+        RANK_PREFIXES.put("infernal", Component.literal("\uE009 "));
         RANK_PREFIXES.put("placeholder", Component.literal("\uE000 "));
 
         RANK_SUFFIXES.put("starter", Component.empty());
         RANK_SUFFIXES.put("beginner", Component.empty());
-        RANK_SUFFIXES.put("intermediate", Component.empty());
+        RANK_SUFFIXES.put("novice", Component.empty());
+        RANK_SUFFIXES.put("disciple", Component.empty());
         RANK_SUFFIXES.put("adequate", Component.empty());
         RANK_SUFFIXES.put("advanced", Component.empty());
         RANK_SUFFIXES.put("master", Component.empty());
+        RANK_SUFFIXES.put("champion", Component.empty());
         RANK_SUFFIXES.put("infernal", Component.empty());
         RANK_SUFFIXES.put("placeholder", Component.empty());
     }
@@ -104,6 +120,24 @@ public class WorldDataManager {
         if (!oldRank.equals(newRank)) {
             setPlayerRank(server, playerUUID, newRank);
             FabricModEvents.assignPlayerToRankTeam(player);
+            if (isRankUp(oldRank, newRank)) {
+                String prefixString = RANK_PREFIXES.getOrDefault(newRank, Component.empty()).getString();
+                if (prefixString.endsWith(" ")) {
+                    prefixString = prefixString.substring(0, prefixString.length() - 1);
+                }
+                MutableComponent message = Component.translatable(
+                        "message.pblizzard.mastery_rank_up",
+                        player.getName(),
+                        Component.literal(prefixString)
+                ).withStyle(style -> style
+                        .withHoverEvent(new HoverEvent.ShowText(Component.translatable("message.pblizzard.mastery_rank_up_hover")))
+                        .withClickEvent(new ClickEvent.SuggestCommand("/msg " + player.getName().getString() + " GG!"))
+                );
+
+                for (ServerPlayer onlinePlayer : server.getPlayerList().getPlayers()) {
+                    onlinePlayer.sendSystemMessage(message);
+                }
+            }
             removeMasteryAdvancementIfDowngraded(player, oldRank, newRank);
         }
     }
@@ -115,11 +149,13 @@ public class WorldDataManager {
                 .allMatch(holder -> player.getAdvancements().getOrStartProgress(holder).isDone());
 
         if (hasAll) return "infernal";
+        if (points >= 300) return "champion";
         if (points >= 240) return "master";
         if (points >= 160) return "advanced";
         if (points >= 100) return "adequate";
-        if (points >= 50)  return "intermediate";
-        if (points >= 20)  return "beginner";
+        if (points >= 50)  return "disciple";
+        if (points >= 30)  return "novice";
+        if (points >= 15)  return "beginner";
         if (points >= 6)   return "starter";
         return "";
     }
@@ -127,13 +163,32 @@ public class WorldDataManager {
     private static void removeMasteryAdvancementIfDowngraded(ServerPlayer player, String oldRank, String newRank) {
         if (oldRank.isEmpty() || oldRank.equals(newRank)) return;
 
+        int playerPoints = getPlayerPoints(player.getServer(), player.getUUID());
+
+        boolean stillQualifies = switch (oldRank) {
+            case "starter" -> playerPoints >= 6;
+            case "beginner" -> playerPoints >= 15;
+            case "novice" -> playerPoints >= 30;
+            case "disciple" -> playerPoints >= 50;
+            case "adequate" -> playerPoints >= 100;
+            case "advanced" -> playerPoints >= 160;
+            case "master" -> playerPoints >= 240;
+            case "champion" -> playerPoints >= 300;
+            case "infernal" -> calculateRank(Objects.requireNonNull(player.getServer()), player, playerPoints).equals("infernal");
+            default -> false;
+        };
+
+        if (stillQualifies) return;
+
         ResourceLocation oldRankAdvancement = switch (oldRank) {
             case "starter" -> Constants.id("mastery/starter");
             case "beginner" -> Constants.id("mastery/beginner");
-            case "intermediate" -> Constants.id("mastery/intermediate");
+            case "novice" -> Constants.id("mastery/novice");
+            case "disciple" -> Constants.id("mastery/disciple");
             case "adequate" -> Constants.id("mastery/adequate");
             case "advanced" -> Constants.id("mastery/advanced");
             case "master" -> Constants.id("mastery/master");
+            case "champion" -> Constants.id("mastery/champion");
             case "infernal" -> Constants.id("mastery/infernal");
             default -> null;
         };
@@ -147,5 +202,9 @@ public class WorldDataManager {
                 }
             }
         }
+    }
+
+    public static boolean isRankUp(String oldRank, String newRank) {
+        return RANK_ORDER.indexOf(newRank) > RANK_ORDER.indexOf(oldRank);
     }
 }

@@ -43,6 +43,9 @@ public abstract class PlayerAdvancementsMixin {
             FabricModEvents.assignPlayerToRankTeam(player);
             triggerRankAdvancement(newRank, player);
         }
+        else {
+            triggerRankAdvancement(newRank, player);
+        }
     }
 
     @Inject(method = "revoke", at = @At("RETURN"))
@@ -59,10 +62,12 @@ public abstract class PlayerAdvancementsMixin {
     private void triggerRankAdvancement(String rank, ServerPlayer player) {
         switch (rank) {
             case "infernal" -> ModTriggers.MASTERY_INFERNAL.trigger(player);
+            case "champion" -> ModTriggers.MASTERY_CHAMPION.trigger(player);
             case "master" -> ModTriggers.MASTERY_MASTER.trigger(player);
             case "advanced" -> ModTriggers.MASTERY_ADVANCED.trigger(player);
             case "adequate" -> ModTriggers.MASTERY_ADEQUATE.trigger(player);
-            case "intermediate" -> ModTriggers.MASTERY_INTERMEDIATE.trigger(player);
+            case "disciple" -> ModTriggers.MASTERY_DISCIPLE.trigger(player);
+            case "novice" -> ModTriggers.MASTERY_NOVICE.trigger(player);
             case "beginner" -> ModTriggers.MASTERY_BEGINNER.trigger(player);
             case "starter" -> ModTriggers.MASTERY_STARTER.trigger(player);
         }

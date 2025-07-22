@@ -1,0 +1,28 @@
+{
+  "parent": "pblizzard:mastery/novice",
+  "criteria": {
+    "mastery_disciple": {
+      "trigger": "pblizzard:mastery_disciple"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.pblizzard.mastery.disciple.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:iron_ingot"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.pblizzard.mastery.disciple.title"
+    }
+  },
+  "requirements": [
+    [
+      "mastery_disciple"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

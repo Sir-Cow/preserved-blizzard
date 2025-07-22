@@ -13,22 +13,22 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class MasteryIntermediateTrigger implements CriterionTrigger<MasteryIntermediateTrigger.Instance> {
-    private final Map<PlayerAdvancements, Set<Listener<MasteryIntermediateTrigger.Instance>>> listeners = new HashMap<>();
+public class MasteryDiscipleTrigger implements CriterionTrigger<MasteryDiscipleTrigger.Instance> {
+    private final Map<PlayerAdvancements, Set<Listener<MasteryDiscipleTrigger.Instance>>> listeners = new HashMap<>();
 
     @Override
-    public @NotNull Codec<MasteryIntermediateTrigger.Instance> codec() {
-        return MasteryIntermediateTrigger.Instance.CODEC;
+    public @NotNull Codec<MasteryDiscipleTrigger.Instance> codec() {
+        return MasteryDiscipleTrigger.Instance.CODEC;
     }
 
     @Override
-    public void addPlayerListener(@NotNull PlayerAdvancements playerAdvancements, @NotNull Listener<MasteryIntermediateTrigger.Instance> listener) {
+    public void addPlayerListener(@NotNull PlayerAdvancements playerAdvancements, @NotNull Listener<MasteryDiscipleTrigger.Instance> listener) {
         this.listeners.computeIfAbsent(playerAdvancements, k -> new HashSet<>()).add(listener);
     }
 
     @Override
-    public void removePlayerListener(@NotNull PlayerAdvancements playerAdvancements, @NotNull Listener<MasteryIntermediateTrigger.Instance> listener) {
-        Set<Listener<MasteryIntermediateTrigger.Instance>> set = this.listeners.get(playerAdvancements);
+    public void removePlayerListener(@NotNull PlayerAdvancements playerAdvancements, @NotNull Listener<MasteryDiscipleTrigger.Instance> listener) {
+        Set<Listener<MasteryDiscipleTrigger.Instance>> set = this.listeners.get(playerAdvancements);
         if (set != null) {
             set.remove(listener);
             if (set.isEmpty()) {
@@ -43,16 +43,16 @@ public class MasteryIntermediateTrigger implements CriterionTrigger<MasteryInter
     }
 
     public void trigger(ServerPlayer player) {
-        Set<Listener<MasteryIntermediateTrigger.Instance>> set = this.listeners.get(player.getAdvancements());
+        Set<Listener<MasteryDiscipleTrigger.Instance>> set = this.listeners.get(player.getAdvancements());
         if (set != null) {
-            for (Listener<MasteryIntermediateTrigger.Instance> listener : set) {
+            for (Listener<MasteryDiscipleTrigger.Instance> listener : set) {
                 listener.run(player.getAdvancements());
             }
         }
     }
 
     public static class Instance implements CriterionTriggerInstance {
-        public static final Codec<MasteryIntermediateTrigger.Instance> CODEC = Codec.unit(new MasteryIntermediateTrigger.Instance());
+        public static final Codec<MasteryDiscipleTrigger.Instance> CODEC = Codec.unit(new MasteryDiscipleTrigger.Instance());
 
         public Instance() {}
 

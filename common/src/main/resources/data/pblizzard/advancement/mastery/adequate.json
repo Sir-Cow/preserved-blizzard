@@ -1,11 +1,12 @@
 {
-  "parent": "pblizzard:mastery/intermediate",
+  "parent": "pblizzard:mastery/disciple",
   "criteria": {
     "mastery_adequate": {
       "trigger": "pblizzard:mastery_adequate"
     }
   },
   "display": {
+    "announce_to_chat": false,
     "description": {
       "translate": "advancements.pblizzard.mastery.adequate.description"
     },
