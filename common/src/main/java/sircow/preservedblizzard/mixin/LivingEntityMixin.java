@@ -3,6 +3,7 @@ package sircow.preservedblizzard.mixin;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,8 +20,8 @@ public class LivingEntityMixin {
         if (entity instanceof Player) {
             // if the entity is a player, always allow drops
         }
-        else if (damageSource.getEntity() instanceof Player) {
-            // if the entity is a mob and killed by a player, allow drops
+        else if (damageSource.getEntity() instanceof Player || damageSource.getEntity() instanceof IronGolem) {
+            // if the entity is a mob and killed by a player or iron golem, allow drops
         }
         else {
             // otherwise, cancel drops

@@ -87,7 +87,7 @@ public class FabricModEvents {
                                 serverPlayer.displayClientMessage(Component.translatable("effect.pblizzard.well_rested_awake"), true);
                             }
                             else {
-                                serverPlayer.displayClientMessage(Component.translatable("effect.pblizzard.well_rested_awake_not_sleeping"), true);
+                                serverPlayer.displayClientMessage(Component.translatable("effect.pblizzard.well_rested_awake_not_sleeping", player.getName()), true);
                             }
                         }
                     }
