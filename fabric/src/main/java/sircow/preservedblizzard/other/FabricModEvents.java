@@ -54,9 +54,23 @@ public class FabricModEvents {
             boolean hadWellRestedEffectOnDeath = TempInventoryStorage.restorePlayerInventory(newPlayer);
 
             // display message if player had well rested effect
-            if (hadWellRestedEffectOnDeath) {
+            if (hadWellRestedEffectOnDeath && !oldPlayer.level().getLevelData().isHardcore() && !newPlayer.level().getLevelData().isHardcore()) {
                 Objects.requireNonNull(newPlayer.getServer()).execute(() -> newPlayer.sendSystemMessage(Component.translatable("effect.pblizzard.well_rested_consume"), true));
             }
+        });
+
+        ServerLivingEntityEvents.ALLOW_DEATH.register((livingEntity, damageSource, damageAmount) -> {
+            // hardcore
+            if (livingEntity instanceof ServerPlayer player) {
+                if (player.level().getLevelData().isHardcore() && player.hasEffect(ModEffects.WELL_RESTED)) {
+                    player.setHealth(1.0F);
+                    player.removeEffect(ModEffects.WELL_RESTED);
+                    player.invulnerableTime = 60;
+                    player.displayClientMessage(Component.translatable("effect.pblizzard.well_rested_hardcore"), true);
+                    return false;
+                }
+            }
+            return true;
         });
     }
 

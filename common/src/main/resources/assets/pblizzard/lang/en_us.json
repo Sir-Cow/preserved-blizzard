@@ -10,6 +10,8 @@
   "message.pblizzard.mastery_rank_up": "%s has ranked up to %s!",
   "message.pblizzard.mastery_rank_up_hover": "Click to say GG!",
 
+  "effect.pblizzard.well_rested_hardcore": "Is this all a bad dream?",
+
   "advancements.pblizzard.mastery.world_join.title": "Mastery",
   "advancements.pblizzard.mastery.world_join.description": "Complete Advancements to earn Mastery ranks!",
   "advancements.pblizzard.mastery.adequate.title": "\uE005",
