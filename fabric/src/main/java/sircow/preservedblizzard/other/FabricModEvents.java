@@ -3,7 +3,6 @@ package sircow.preservedblizzard.other;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
@@ -13,11 +12,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.scores.PlayerTeam;
 import net.minecraft.world.scores.Scoreboard;
 import sircow.preservedblizzard.Constants;
@@ -30,17 +26,6 @@ import java.util.*;
 
 public class FabricModEvents {
     private static MinecraftServer currentServer;
-
-    public static void removeTridentDropFromDrowned() {
-        ServerEntityEvents.ENTITY_LOAD.register((entity, world) -> {
-            // prevent drowned dropping trident
-            if (entity instanceof Drowned drowned) {
-                if (drowned.getMainHandItem().is(Items.TRIDENT)) {
-                    drowned.setDropChance(EquipmentSlot.MAINHAND, 0.0f);
-                }
-            }
-        });
-    }
 
     public static void handleEntityDeath() {
         ServerLivingEntityEvents.ALLOW_DEATH.register((livingEntity, damageSource, damageAmount) -> {
@@ -208,7 +193,6 @@ public class FabricModEvents {
 
     public static void registerModEvents() {
         // Constants.LOG.info("Registering Fabric Mod Events for " + Constants.MOD_ID);
-        removeTridentDropFromDrowned();
         handleEntityDeath();
         removeEffectWhenPlayerDamagesHostile();
         modifySleeping();

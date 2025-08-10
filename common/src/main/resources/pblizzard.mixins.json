@@ -5,17 +5,13 @@
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_18",
   "mixins": [
-    "AxeItemMixin",
     "BaseFireBlockMixin",
     "BlocksMixin",
-    "CarversMixin",
     "CrossbowMixin",
     "GameRulesMixin",
     "IglooPiecesMixin",
-    "ItemsMixin",
     "LightningBoltMixin",
     "LivingEntityMixin",
-    "MaceItemMixin",
     "MinecraftServerMixin",
     "MobMixin",
     "PlayerListMixin",
@@ -25,8 +21,6 @@
     "ServerExplosionMixin",
     "ServerGamePacketListenerImplMixin",
     "ServerPlayerMixin",
-    "ThrownTridentMixin",
-    "TridentItemMixin",
     "ZombieMixin"
   ],
   "client": [
