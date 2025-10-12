@@ -19,15 +19,15 @@ public class PlayerTabOverlayMixin {
         List<PlayerInfo> sorted = new ArrayList<>(cir.getReturnValue());
 
         sorted.sort((a, b) -> {
-            UUID uuidA = a.getProfile().getId();
-            UUID uuidB = b.getProfile().getId();
+            UUID uuidA = a.getProfile().id();
+            UUID uuidB = b.getProfile().id();
             int pointsA = ClientPointsManager.getPlayerPoints(uuidA);
             int pointsB = ClientPointsManager.getPlayerPoints(uuidB);
             int compare = Integer.compare(pointsB, pointsA);
 
             if (compare != 0) return compare;
 
-            return a.getProfile().getName().compareToIgnoreCase(b.getProfile().getName());
+            return a.getProfile().name().compareToIgnoreCase(b.getProfile().name());
         });
 
         cir.setReturnValue(sorted);

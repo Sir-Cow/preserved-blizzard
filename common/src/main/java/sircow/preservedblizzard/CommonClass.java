@@ -5,7 +5,6 @@ import org.apache.logging.log4j.core.Filter;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.Logger;
 import org.apache.logging.log4j.core.filter.AbstractFilter;
-import sircow.preservedblizzard.effect.ModEffects;
 import sircow.preservedblizzard.platform.Services;
 import sircow.preservedblizzard.trigger.ModTriggers;
 
@@ -15,8 +14,6 @@ public class CommonClass {
     public static void init() {
         if (Services.PLATFORM.isModLoaded("pblizzard")) {
             Constants.LOG.info("Initialising Preserved: Blizzard");
-            ModEffects.registerModEffects();
-            ModTriggers.registerTriggers();
             // other
             suppressSpecificLogLines();
         }

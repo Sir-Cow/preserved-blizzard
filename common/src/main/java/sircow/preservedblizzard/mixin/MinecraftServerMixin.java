@@ -1,7 +1,6 @@
 package sircow.preservedblizzard.mixin;
 
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.progress.ChunkProgressListener;
 import net.minecraft.world.level.border.WorldBorder;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -15,7 +14,7 @@ public class MinecraftServerMixin {
     @Unique private static final int TICKS_PER_HOUR = 20 * 60 * 60;
 
     @Inject(method = "createLevels", at = @At("TAIL"))
-    private void preserved_blizzard$setWorldBorder(ChunkProgressListener listener, CallbackInfo ci) {
+    private void preserved_blizzard$setWorldBorder(CallbackInfo ci) {
         // initial world border setup on world creation
         MinecraftServer server = (MinecraftServer) (Object) this;
         IWorldBorderStatus borderStatus = (IWorldBorderStatus) server.overworld().getLevelData();

@@ -15,6 +15,7 @@ import sircow.preservedblizzard.other.FabricModEvents;
 import sircow.preservedblizzard.other.ModAdvancements;
 import sircow.preservedblizzard.other.WorldDataManager;
 import sircow.preservedblizzard.trigger.ModTriggers;
+import sircow.preservedblizzard.trigger.custom.*;
 
 @Mixin(PlayerAdvancements.class)
 public abstract class PlayerAdvancementsMixin {
@@ -24,8 +25,7 @@ public abstract class PlayerAdvancementsMixin {
     private void preserved_blizzard$onAwardAdvancement(AdvancementHolder advancementHolder, String criterionKey, CallbackInfoReturnable<Boolean> cir) {
         if (!cir.getReturnValue()) return;
 
-        MinecraftServer server = player.getServer();
-        if (server == null) return;
+        MinecraftServer server = player.level().getServer();
 
         ResourceLocation advancementId = advancementHolder.id();
         if (ModAdvancements.EXCLUDED_ADVANCEMENTS.contains(advancementId) || advancementId.getPath().startsWith("recipes/")) {
@@ -51,25 +51,21 @@ public abstract class PlayerAdvancementsMixin {
     @Inject(method = "revoke", at = @At("RETURN"))
     private void preserved_blizzard$onRevokeAdvancement(AdvancementHolder advancementHolder, String criterionKey, CallbackInfoReturnable<Boolean> cir) {
         if (!cir.getReturnValue()) return;
-
-        MinecraftServer server = player.getServer();
-        if (server == null) return;
-
-        WorldDataManager.syncPlayerPointsWithAdvancements(server, player);
+        WorldDataManager.syncPlayerPointsWithAdvancements(player.level().getServer(), player);
     }
 
     @Unique
     private void triggerRankAdvancement(String rank, ServerPlayer player) {
         switch (rank) {
-            case "infernal" -> ModTriggers.MASTERY_INFERNAL.trigger(player);
-            case "champion" -> ModTriggers.MASTERY_CHAMPION.trigger(player);
-            case "master" -> ModTriggers.MASTERY_MASTER.trigger(player);
-            case "advanced" -> ModTriggers.MASTERY_ADVANCED.trigger(player);
-            case "adequate" -> ModTriggers.MASTERY_ADEQUATE.trigger(player);
-            case "disciple" -> ModTriggers.MASTERY_DISCIPLE.trigger(player);
-            case "novice" -> ModTriggers.MASTERY_NOVICE.trigger(player);
-            case "beginner" -> ModTriggers.MASTERY_BEGINNER.trigger(player);
-            case "starter" -> ModTriggers.MASTERY_STARTER.trigger(player);
+            case "infernal" -> ((MasteryInfernalTrigger) ModTriggers.MASTERY_INFERNAL.trigger).trigger(player);
+            case "champion" -> ((MasteryChampionTrigger) ModTriggers.MASTERY_CHAMPION.trigger).trigger(player);
+            case "master" -> ((MasteryMasterTrigger) ModTriggers.MASTERY_MASTER.trigger).trigger(player);
+            case "advanced" -> ((MasteryAdvancedTrigger) ModTriggers.MASTERY_ADVANCED.trigger).trigger(player);
+            case "adequate" -> ((MasteryAdequateTrigger) ModTriggers.MASTERY_ADEQUATE.trigger).trigger(player);
+            case "disciple" -> ((MasteryDiscipleTrigger) ModTriggers.MASTERY_DISCIPLE.trigger).trigger(player);
+            case "novice" -> ((MasteryNoviceTrigger) ModTriggers.MASTERY_NOVICE.trigger).trigger(player);
+            case "beginner" -> ((MasteryBeginnerTrigger) ModTriggers.MASTERY_BEGINNER.trigger).trigger(player);
+            case "starter" -> ((MasteryStarterTrigger) ModTriggers.MASTERY_STARTER.trigger).trigger(player);
         }
     }
 }

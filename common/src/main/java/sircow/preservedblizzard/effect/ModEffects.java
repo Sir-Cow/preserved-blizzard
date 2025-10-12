@@ -1,23 +1,29 @@
 package sircow.preservedblizzard.effect;
 
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import sircow.preservedblizzard.Constants;
+
+import java.util.List;
+import java.util.function.Supplier;
 
 public class ModEffects {
-    public static final Holder<MobEffect> WELL_RESTED = register("well_rested",
-            new WellRestedEffect(MobEffectCategory.BENEFICIAL, 0xE3884E));
-    public static final Holder<MobEffect> SUNSHINE_GRACE = register("sunshine_grace",
-            new SunshineGraceEffect(MobEffectCategory.BENEFICIAL, 0xE3884E));
+    public static class EffectEntry {
+        public final String id;
+        public final Supplier<MobEffect> factory;
+        public Holder<MobEffect> holder;
 
-    private static Holder<MobEffect> register(String name, MobEffect effect) {
-        return Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, Constants.id(name), effect);
+        public EffectEntry(String id, Supplier<MobEffect> factory) {
+            this.id = id;
+            this.factory = factory;
+        }
     }
 
-    public static void registerModEffects() {
-        // Constants.LOG.info("Registering Mod Effects for " + Constants.MOD_ID);
-    }
+    public static final EffectEntry WELL_RESTED = new EffectEntry("well_rested", () -> new WellRestedEffect(MobEffectCategory.BENEFICIAL, 0xE3884E));
+    public static final EffectEntry SUNSHINE_GRACE = new EffectEntry("sunshine_grace", () -> new SunshineGraceEffect(MobEffectCategory.BENEFICIAL, 0xE3884E));
+
+    public static final List<EffectEntry> ALL_EFFECTS = List.of(
+            WELL_RESTED,
+            SUNSHINE_GRACE
+    );
 }

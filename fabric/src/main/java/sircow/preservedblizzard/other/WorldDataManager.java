@@ -96,6 +96,8 @@ public class WorldDataManager {
         Set<ResourceLocation> newAwardedAdvancements = new HashSet<>();
         for (AdvancementHolder holder : server.getAdvancements().getAllAdvancements()) {
             ResourceLocation id = holder.id();
+            String namespace = id.getNamespace();
+            if (!(namespace.equals("minecraft") || namespace.equals("pinferno"))) continue;
             if (!ModAdvancements.EXCLUDED_ADVANCEMENTS.contains(id) && !id.getPath().startsWith("recipes/")) {
                 AdvancementProgress progress = player.getAdvancements().getOrStartProgress(holder);
                 if (progress.isDone()) {
@@ -163,7 +165,7 @@ public class WorldDataManager {
     private static void removeMasteryAdvancementIfDowngraded(ServerPlayer player, String oldRank, String newRank) {
         if (oldRank.isEmpty() || oldRank.equals(newRank)) return;
 
-        int playerPoints = getPlayerPoints(player.getServer(), player.getUUID());
+        int playerPoints = getPlayerPoints(player.level().getServer(), player.getUUID());
 
         boolean stillQualifies = switch (oldRank) {
             case "starter" -> playerPoints >= 6;
@@ -174,7 +176,7 @@ public class WorldDataManager {
             case "advanced" -> playerPoints >= 160;
             case "master" -> playerPoints >= 240;
             case "champion" -> playerPoints >= 300;
-            case "infernal" -> calculateRank(Objects.requireNonNull(player.getServer()), player, playerPoints).equals("infernal");
+            case "infernal" -> calculateRank(Objects.requireNonNull(player.level().getServer()), player, playerPoints).equals("infernal");
             default -> false;
         };
 
@@ -194,7 +196,7 @@ public class WorldDataManager {
         };
 
         if (oldRankAdvancement != null) {
-            AdvancementHolder holder = Objects.requireNonNull(player.getServer()).getAdvancements().get(oldRankAdvancement);
+            AdvancementHolder holder = Objects.requireNonNull(player.level().getServer()).getAdvancements().get(oldRankAdvancement);
             if (holder != null) {
                 AdvancementProgress progress = player.getAdvancements().getOrStartProgress(holder);
                 for (String criterion : progress.getCompletedCriteria()) {

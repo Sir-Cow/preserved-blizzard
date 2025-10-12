@@ -21,6 +21,7 @@ import sircow.preservedblizzard.effect.ModEffects;
 import sircow.preservedblizzard.network.ModMessages;
 import sircow.preservedblizzard.platform.Services;
 import sircow.preservedblizzard.trigger.ModTriggers;
+import sircow.preservedblizzard.trigger.custom.WorldJoinTrigger;
 
 import java.util.*;
 
@@ -40,16 +41,16 @@ public class FabricModEvents {
 
             // display message if player had well rested effect
             if (hadWellRestedEffectOnDeath && !oldPlayer.level().getLevelData().isHardcore() && !newPlayer.level().getLevelData().isHardcore()) {
-                Objects.requireNonNull(newPlayer.getServer()).execute(() -> newPlayer.sendSystemMessage(Component.translatable("effect.pblizzard.well_rested_consume"), true));
+                Objects.requireNonNull(newPlayer.level().getServer()).execute(() -> newPlayer.sendSystemMessage(Component.translatable("effect.pblizzard.well_rested_consume"), true));
             }
         });
 
         ServerLivingEntityEvents.ALLOW_DEATH.register((livingEntity, damageSource, damageAmount) -> {
             // hardcore
             if (livingEntity instanceof ServerPlayer player) {
-                if (player.level().getLevelData().isHardcore() && player.hasEffect(ModEffects.WELL_RESTED)) {
+                if (player.level().getLevelData().isHardcore() && player.hasEffect(ModEffects.WELL_RESTED.holder)) {
                     player.setHealth(1.0F);
-                    player.removeEffect(ModEffects.WELL_RESTED);
+                    player.removeEffect(ModEffects.WELL_RESTED.holder);
                     player.invulnerableTime = 60;
                     player.displayClientMessage(Component.translatable("effect.pblizzard.well_rested_hardcore"), true);
                     return false;
@@ -66,8 +67,8 @@ public class FabricModEvents {
             }
 
             if (source.getEntity() instanceof ServerPlayer player) {
-                if (player.hasEffect(ModEffects.SUNSHINE_GRACE)) {
-                    player.removeEffect(ModEffects.SUNSHINE_GRACE);
+                if (player.hasEffect(ModEffects.SUNSHINE_GRACE.holder)) {
+                    player.removeEffect(ModEffects.SUNSHINE_GRACE.holder);
                 }
             }
             return true;
@@ -81,7 +82,7 @@ public class FabricModEvents {
                     MinecraftServer server = player.level().getServer();
                     if (server != null) {
                         for (ServerPlayer serverPlayer : server.getPlayerList().getPlayers()) {
-                            serverPlayer.addEffect(new MobEffectInstance(ModEffects.WELL_RESTED, 24000, 0, false, false, true));
+                            serverPlayer.addEffect(new MobEffectInstance(ModEffects.WELL_RESTED.holder, 24000, 0, false, false, true));
                             if (player.getUUID() == serverPlayer.getUUID()) {
                                 serverPlayer.displayClientMessage(Component.translatable("effect.pblizzard.well_rested_awake"), true);
                             }
@@ -168,7 +169,7 @@ public class FabricModEvents {
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             ServerPlayer player = handler.player;
             if (!Services.PLATFORM.isModLoaded("pinferno")) {
-                ModTriggers.WORLD_JOIN.trigger(player);
+                ((WorldJoinTrigger) ModTriggers.WORLD_JOIN.trigger).trigger(player);;
             }
             assignPlayerToRankTeam(player);
             WorldDataManager.syncPlayerPointsWithAdvancements(server, player);
@@ -185,7 +186,7 @@ public class FabricModEvents {
                 var advancement = server.getAdvancements().get(ResourceLocation.withDefaultNamespace("story/root"));
                 if (advancement == null) continue;
                 if (player.getAdvancements().getOrStartProgress(advancement).isDone()) {
-                    ModTriggers.WORLD_JOIN.trigger(player);
+                    ((WorldJoinTrigger) ModTriggers.WORLD_JOIN.trigger).trigger(player);;
                 }
             }
         });

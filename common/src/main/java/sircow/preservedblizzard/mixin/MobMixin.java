@@ -14,7 +14,7 @@ public class MobMixin {
     @Inject(method = "setTarget", at = @At("HEAD"), cancellable = true)
     private void preserved_blizzard$preventTargetWithSunshineGrace(LivingEntity target, CallbackInfo ci) {
         if (target instanceof Player player) {
-            if (player.hasEffect(ModEffects.SUNSHINE_GRACE)) {
+            if (player.hasEffect(ModEffects.SUNSHINE_GRACE.holder)) {
                 if (player.getY() >= 64.0D) {
                     ci.cancel();
                 }

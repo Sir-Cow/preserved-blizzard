@@ -4,7 +4,7 @@ license = "${license}"
 issueTrackerURL="https://github.com/Sir-Cow/preserved-blizzard/issues"
 [[mods]]
 modId = "${mod_id}"
-version = "${version}"
+version = "1.1.2b"
 displayName = "Preserved: Blizzard"
 updateJSONURL="https://github.com/Sir-Cow/preserved-blizzard/tree/main/common/src/main/resources/update_json.json"
 displayURL="https://modrinth.com/mod/preserved-blizzard"

@@ -1,28 +1,44 @@
 package sircow.preservedblizzard.trigger;
 
 import net.minecraft.advancements.CriterionTrigger;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import sircow.preservedblizzard.Constants;
 import sircow.preservedblizzard.trigger.custom.*;
 
+import java.util.List;
+import java.util.function.Supplier;
+
 public class ModTriggers {
-    public static final WorldJoinTrigger WORLD_JOIN = register("world_join", new WorldJoinTrigger());
-    public static final MasteryAdequateTrigger MASTERY_ADEQUATE = register("mastery_adequate", new MasteryAdequateTrigger());
-    public static final MasteryAdvancedTrigger MASTERY_ADVANCED = register("mastery_advanced", new MasteryAdvancedTrigger());
-    public static final MasteryBeginnerTrigger MASTERY_BEGINNER = register("mastery_beginner", new MasteryBeginnerTrigger());
-    public static final MasteryChampionTrigger MASTERY_CHAMPION = register("mastery_champion", new MasteryChampionTrigger());
-    public static final MasteryDiscipleTrigger MASTERY_DISCIPLE = register("mastery_disciple", new MasteryDiscipleTrigger());
-    public static final MasteryInfernalTrigger MASTERY_INFERNAL = register("mastery_infernal", new MasteryInfernalTrigger());
-    public static final MasteryMasterTrigger MASTERY_MASTER = register("mastery_master", new MasteryMasterTrigger());
-    public static final MasteryNoviceTrigger MASTERY_NOVICE = register("mastery_novice", new MasteryNoviceTrigger());
-    public static final MasteryStarterTrigger MASTERY_STARTER = register("mastery_starter", new MasteryStarterTrigger());
+    public static class TriggerEntry<T extends CriterionTrigger<?>> {
+        public final String id;
+        public final Supplier<T> factory;
+        public CriterionTrigger<?> trigger;
 
-    public static <T extends CriterionTrigger<?>> T register(String name, T trigger) {
-        return Registry.register(BuiltInRegistries.TRIGGER_TYPES, Constants.id(name), trigger);
+        public TriggerEntry(String id, Supplier<T> factory) {
+            this.id = id;
+            this.factory = factory;
+        }
     }
 
-    public static void registerTriggers() {
-       // Constants.LOG.info("Registering Mod Triggers for " + Constants.MOD_ID);
-    }
+    public static final TriggerEntry<WorldJoinTrigger> WORLD_JOIN = new TriggerEntry<>("world_join", WorldJoinTrigger::new);
+    public static final TriggerEntry<MasteryAdequateTrigger> MASTERY_ADEQUATE = new TriggerEntry<>("mastery_adequate", MasteryAdequateTrigger::new);
+    public static final TriggerEntry<MasteryAdvancedTrigger> MASTERY_ADVANCED = new TriggerEntry<>("mastery_advanced", MasteryAdvancedTrigger::new);
+    public static final TriggerEntry<MasteryBeginnerTrigger> MASTERY_BEGINNER = new TriggerEntry<>("mastery_beginner", MasteryBeginnerTrigger::new);
+    public static final TriggerEntry<MasteryChampionTrigger> MASTERY_CHAMPION = new TriggerEntry<>("mastery_champion", MasteryChampionTrigger::new);
+    public static final TriggerEntry<MasteryDiscipleTrigger> MASTERY_DISCIPLE = new TriggerEntry<>("mastery_disciple", MasteryDiscipleTrigger::new);
+    public static final TriggerEntry<MasteryInfernalTrigger> MASTERY_INFERNAL = new TriggerEntry<>("mastery_infernal", MasteryInfernalTrigger::new);
+    public static final TriggerEntry<MasteryMasterTrigger> MASTERY_MASTER = new TriggerEntry<>("mastery_master", MasteryMasterTrigger::new);
+    public static final TriggerEntry<MasteryNoviceTrigger> MASTERY_NOVICE = new TriggerEntry<>("mastery_novice", MasteryNoviceTrigger::new);
+    public static final TriggerEntry<MasteryStarterTrigger> MASTERY_STARTER = new TriggerEntry<>("mastery_starter", MasteryStarterTrigger::new);
+
+    public static final List<TriggerEntry<?>> ALL_TRIGGERS = List.of(
+            WORLD_JOIN,
+            MASTERY_ADEQUATE,
+            MASTERY_ADVANCED,
+            MASTERY_BEGINNER,
+            MASTERY_CHAMPION,
+            MASTERY_DISCIPLE,
+            MASTERY_INFERNAL,
+            MASTERY_MASTER,
+            MASTERY_NOVICE,
+            MASTERY_STARTER
+    );
 }

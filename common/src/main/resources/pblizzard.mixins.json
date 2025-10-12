@@ -9,7 +9,6 @@
     "BlocksMixin",
     "CrossbowMixin",
     "GameRulesMixin",
-    "IglooPiecesMixin",
     "LightningBoltMixin",
     "LivingEntityMixin",
     "MinecraftServerMixin",
@@ -20,8 +19,7 @@
     "PrimaryLevelDataMixin",
     "ServerExplosionMixin",
     "ServerGamePacketListenerImplMixin",
-    "ServerPlayerMixin",
-    "ZombieMixin"
+    "ServerPlayerMixin"
   ],
   "client": [
     "AdvancementsScreenMixin",

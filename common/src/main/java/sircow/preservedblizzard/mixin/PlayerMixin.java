@@ -21,7 +21,7 @@ public abstract class PlayerMixin extends LivingEntity {
 
     @Inject(method = "die", at = @At(value = "HEAD"))
     private void preserved_blizzard$handleDie(DamageSource damageSource, CallbackInfo ci) {
-        if (!this.isSpectator() && this.level() instanceof ServerLevel serverLevel && !this.hasEffect(ModEffects.WELL_RESTED)) {
+        if (!this.isSpectator() && this.level() instanceof ServerLevel serverLevel && !this.hasEffect(ModEffects.WELL_RESTED.holder)) {
             this.dropAllDeathLoot(serverLevel, damageSource);
         }
     }
@@ -29,7 +29,7 @@ public abstract class PlayerMixin extends LivingEntity {
     @Inject(method = "dropEquipment", at = @At("HEAD"), cancellable = true)
     public void preserved_blizzard$preventInvDrop(ServerLevel level, CallbackInfo ci) {
         Player player = (Player)(Object)this;
-        if (player.hasEffect(ModEffects.WELL_RESTED)) {
+        if (player.hasEffect(ModEffects.WELL_RESTED.holder)) {
             ci.cancel();
         }
     }
@@ -37,7 +37,7 @@ public abstract class PlayerMixin extends LivingEntity {
     @Inject(method = "getBaseExperienceReward", at = @At("HEAD"), cancellable = true)
     public void preserved_blizzard$preventExpDrop(ServerLevel level, CallbackInfoReturnable<Integer> cir) {
         Player player = (Player)(Object)this;
-        if (player.hasEffect(ModEffects.WELL_RESTED) || player.isSpectator()) {
+        if (player.hasEffect(ModEffects.WELL_RESTED.holder) || player.isSpectator()) {
             cir.setReturnValue(0);
             cir.cancel();
         }

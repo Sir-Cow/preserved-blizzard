@@ -64,7 +64,7 @@ public abstract class ServerPlayerMixin extends Player implements IFirstJoinTrac
     private boolean preserved_blizzard$modifyKeepInventoryRule(GameRules instance, GameRules.Key<GameRules.BooleanValue> key, Operation<Boolean> original) {
         ServerPlayer self = (ServerPlayer)(Object)this;
         if (key == GameRules.RULE_KEEPINVENTORY) {
-            return original.call(instance, key) || self.hasEffect(ModEffects.WELL_RESTED);
+            return original.call(instance, key) || self.hasEffect(ModEffects.WELL_RESTED.holder);
         }
 
         return original.call(instance, key);
@@ -89,7 +89,7 @@ public abstract class ServerPlayerMixin extends Player implements IFirstJoinTrac
             }
 
             if (!hasJoinedBefore.get()) {
-                this.addEffect(new MobEffectInstance(ModEffects.SUNSHINE_GRACE, 20 * 60 * 10, 0));
+                this.addEffect(new MobEffectInstance(ModEffects.SUNSHINE_GRACE.holder, 20 * 60 * 10, 0));
                 hasJoinedBefore = Optional.of(true);
             }
         }
