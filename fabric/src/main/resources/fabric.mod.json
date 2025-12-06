@@ -18,15 +18,11 @@
     "entrypoints": {
         "main": [
             "sircow.preservedblizzard.PreservedBlizzard"
-        ],
-        "client": [
-            "sircow.preservedblizzard.client.FabricPreservedBlizzardClient"
         ]
     },
     "mixins": [
         "${mod_id}.mixins.json",
-        "${mod_id}.fabric.mixins.json",
-        "${mod_id}.betteradvancements.mixins.json"
+        "${mod_id}.fabric.mixins.json"
     ],
     "depends": {
         "fabricloader": ">=${fabric_loader_version}",

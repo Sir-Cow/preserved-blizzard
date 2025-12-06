@@ -10,20 +10,14 @@
     "CrossbowMixin",
     "GameRulesMixin",
     "LightningBoltMixin",
-    "LivingEntityMixin",
     "MinecraftServerMixin",
     "MobMixin",
-    "PlayerListMixin",
-    "PlayerMixin",
     "PortalShapeMixin",
     "PrimaryLevelDataMixin",
     "ServerExplosionMixin",
-    "ServerGamePacketListenerImplMixin",
     "ServerPlayerMixin"
   ],
   "client": [
-    "AdvancementsScreenMixin",
-    "PlayerTabOverlayMixin"
   ],
   "server": [],
   "injectors": {

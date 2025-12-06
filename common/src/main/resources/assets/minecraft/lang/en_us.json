@@ -1,6 +1,0 @@
-{
-  "replace": true,
-
-  "chat.type.team.text": "%s %s: %s",
-  "chat.type.text": "%s: %s"
-}

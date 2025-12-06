@@ -19,11 +19,9 @@ public class ModEffects {
         }
     }
 
-    public static final EffectEntry WELL_RESTED = new EffectEntry("well_rested", () -> new WellRestedEffect(MobEffectCategory.BENEFICIAL, 0xE3884E));
     public static final EffectEntry SUNSHINE_GRACE = new EffectEntry("sunshine_grace", () -> new SunshineGraceEffect(MobEffectCategory.BENEFICIAL, 0xE3884E));
 
     public static final List<EffectEntry> ALL_EFFECTS = List.of(
-            WELL_RESTED,
             SUNSHINE_GRACE
     );
 }

@@ -1,12 +1,9 @@
 package sircow.preservedblizzard.mixin;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -58,16 +55,6 @@ public abstract class ServerPlayerMixin extends Player implements IFirstJoinTrac
     private void preserved_blizzard$readAdditionalSaveData(ValueInput in, CallbackInfo ci) {
         boolean joinedBefore = in.getBooleanOr("pblizzard:hasJoinedBefore", false);
         this.hasJoinedBefore = Optional.of(joinedBefore);
-    }
-
-    @WrapOperation(method = "restoreFrom", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/GameRules;getBoolean(Lnet/minecraft/world/level/GameRules$Key;)Z"))
-    private boolean preserved_blizzard$modifyKeepInventoryRule(GameRules instance, GameRules.Key<GameRules.BooleanValue> key, Operation<Boolean> original) {
-        ServerPlayer self = (ServerPlayer)(Object)this;
-        if (key == GameRules.RULE_KEEPINVENTORY) {
-            return original.call(instance, key) || self.hasEffect(ModEffects.WELL_RESTED.holder);
-        }
-
-        return original.call(instance, key);
     }
 
     @Inject(method = "restoreFrom", at = @At("TAIL"))

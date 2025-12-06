@@ -1,35 +1,3 @@
 {
-  "effect.pblizzard.sunshine_grace": "Sunshine Grace",
-  "effect.pblizzard.well_rested": "Well Rested",
-  "effect.pblizzard.well_rested_awake": "You awaken feeling well rested.",
-  "effect.pblizzard.well_rested_awake_not_sleeping": "A new day dawns over you. Thank %s!",
-  "effect.pblizzard.well_rested_consume": "Maybe that was just a bad dream...",
-
-  "advancements.pblizzard.menu.mastery_points": "Mastery Points: %s",
-
-  "message.pblizzard.mastery_rank_up": "%s has ranked up to %s!",
-  "message.pblizzard.mastery_rank_up_hover": "Click to say GG!",
-
-  "effect.pblizzard.well_rested_hardcore": "Is this all a bad dream?",
-
-  "advancements.pblizzard.mastery.world_join.title": "Mastery",
-  "advancements.pblizzard.mastery.world_join.description": "Complete Advancements to earn Mastery ranks!",
-  "advancements.pblizzard.mastery.adequate.title": "\uE005",
-  "advancements.pblizzard.mastery.adequate.description": "Collect 100 Mastery points",
-  "advancements.pblizzard.mastery.advanced.title": "\uE006",
-  "advancements.pblizzard.mastery.advanced.description": "Collect 160 Mastery points",
-  "advancements.pblizzard.mastery.beginner.title": "\uE002",
-  "advancements.pblizzard.mastery.beginner.description": "Collect 15 Mastery points",
-  "advancements.pblizzard.mastery.champion.title": "\uE008",
-  "advancements.pblizzard.mastery.champion.description": "Collect 300 Mastery points",
-  "advancements.pblizzard.mastery.disciple.title": "\uE004",
-  "advancements.pblizzard.mastery.disciple.description": "Collect 50 Mastery points",
-  "advancements.pblizzard.mastery.infernal.title": "\uE009",
-  "advancements.pblizzard.mastery.infernal.description": "Complete every single Advancement",
-  "advancements.pblizzard.mastery.master.title": "\uE007",
-  "advancements.pblizzard.mastery.master.description": "Collect 240 Mastery points",
-  "advancements.pblizzard.mastery.novice.title": "\uE003",
-  "advancements.pblizzard.mastery.novice.description": "Collect 30 Mastery points",
-  "advancements.pblizzard.mastery.starter.title": "\uE001",
-  "advancements.pblizzard.mastery.starter.description": "Collect 6 Mastery points"
+  "effect.pblizzard.sunshine_grace": "Sunshine Grace"
 }

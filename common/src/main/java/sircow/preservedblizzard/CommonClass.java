@@ -6,7 +6,6 @@ import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.Logger;
 import org.apache.logging.log4j.core.filter.AbstractFilter;
 import sircow.preservedblizzard.platform.Services;
-import sircow.preservedblizzard.trigger.ModTriggers;
 
 import java.util.*;
 

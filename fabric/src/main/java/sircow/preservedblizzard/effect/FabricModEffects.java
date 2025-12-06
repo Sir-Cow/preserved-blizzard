@@ -7,7 +7,6 @@ import sircow.preservedblizzard.Constants;
 public class FabricModEffects {
     public static void registerFabricModEffects() {
         register(ModEffects.SUNSHINE_GRACE);
-        register(ModEffects.WELL_RESTED);
     }
 
     private static void register(ModEffects.EffectEntry entry) {
